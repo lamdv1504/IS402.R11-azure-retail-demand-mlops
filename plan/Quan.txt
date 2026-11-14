@@ -1,0 +1,141 @@
+KẾ HOẠCH CÔNG VIỆC CÁ NHÂN - QUÂN
+========================================================================
+Dự án: IS402.R11-BT2 - Azure Retail Demand Forecasting MLOps
+Vai trò: Cloud / MLOps Engineer
+Nguồn: Đồ án Điện toán đám mây.xlsx - kế hoạch 23 công việc gốc.
+Trạng thái: Các nhiệm vụ là kế hoạch, chưa mặc định đã hoàn thành.
+
+1. CÁC GIAI ĐOẠN THỰC HIỆN
+------------------------------------------------------------------------
+
+
+2. CÔNG VIỆC CHI TIẾT
+------------------------------------------------------------------------
+[QUÂN] - Cloud / MLOps Engineer (7 công việc)
+=============================================================================
+
+Q01 | GĐ1 | Chuẩn bị Azure
+-----------------------------------------------------------------------------
+Mục đích: Kiểm tra quyền, ngân sách và tạo khu vực quản lý tài nguyên.
+Các bước thực hiện:
+  1. Đăng nhập Azure Portal, chọn đúng subscription.
+  2. Kiểm tra subscription Enabled, quyền tạo tài nguyên, region có thể sử dụng.
+  3. Kiểm tra quota Azure ML Compute/AKS và chi phí dự kiến.
+  4. Tạo Resource Group rg-mlops-retail nếu được phép.
+  5. Ghi thông tin Resource Group/region cho nhóm; tránh phát sinh tài nguyên tính phí không cần thiết.
+Công cụ / file: https://portal.azure.com/; Azure Subscriptions; Resource groups; Cost Management.
+Sản phẩm bàn giao: Subscription/region/quota được ghi nhận; Resource Group; bảng lưu ý chi phí.
+Tiêu chí nghiệm thu: Có thể tạo tài nguyên cần thiết, biết các giới hạn; không đoán quota hay chi phí.
+Phụ thuộc / phối hợp: Gửi cả nhóm tình trạng Azure; là điều kiện để làm Q02/Q03.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q02 | GĐ2 | Tạo Azure Blob Storage
+-----------------------------------------------------------------------------
+Mục đích: Chuẩn bị nơi lưu dữ liệu để Hùng upload và Hiếu train.
+Các bước thực hiện:
+  1. Trong Resource Group tạo Storage Account.
+  2. Tạo containers raw-data, processed-data, model-artifacts, experiment-results.
+  3. Chọn cấu hình private, chỉ cấp quyền cần thiết.
+  4. Cấp quyền đọc/ghi phù hợp cho Hùng và quyền đọc cho thành phần train.
+  5. Kiểm tra Hùng upload test thành công vào processed-data.
+  6. Gửi tên account, container và hướng dẫn truy cập (không gửi secret trong Git).
+Công cụ / file: Azure Portal > Storage Accounts > Containers; Azure RBAC.
+Sản phẩm bàn giao: Storage Account và 4 container; role access; ảnh Portal; đường dẫn Blob.
+Tiêu chí nghiệm thu: Hùng upload/download được; Hiếu/AML có đường dẫn dữ liệu; không lộ access key.
+Phụ thuộc / phối hợp: Phụ thuộc Q01; bàn giao tài nguyên Blob cho Hùng (H03).
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q03 | GĐ2 | Tạo Azure Machine Learning Workspace
+-----------------------------------------------------------------------------
+Mục đích: Chuẩn bị nơi chạy training job và quản lý phiên bản model.
+Các bước thực hiện:
+  1. Azure Portal > Create resource > Azure Machine Learning.
+  2. Chọn đúng Resource Group và Region, đặt tên Workspace.
+  3. Tạo và mở Azure ML Studio.
+  4. Cấp quyền truy cập Workspace cho Hiếu.
+  5. Chuẩn bị Compute CPU phù hợp để chạy model, có kiểm soát quota/chi phí.
+  6. Nhờ Hiếu xác nhận vào Workspace và xem Compute được.
+Công cụ / file: Azure Portal; Azure ML Studio; Compute; RBAC.
+Sản phẩm bàn giao: AML Workspace; Compute/môi trường train; quyền truy cập cho Hiếu; ảnh Studio.
+Tiêu chí nghiệm thu: Hiếu có thể vào Workspace và submit job khi code sẵn sàng.
+Phụ thuộc / phối hợp: Phụ thuộc Q01; bàn giao Workspace/Compute cho HI06.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q04 | GĐ4 | Azure Pipelines – CI
+-----------------------------------------------------------------------------
+Mục đích: Tự động lấy code và chạy kiểm thử khi nhóm cập nhật Git.
+Các bước thực hiện:
+  1. Mở Azure DevOps, tạo Project nếu chưa có.
+  2. Kết nối GitHub Repository.
+  3. Chọn Pipelines > New Pipeline > GitHub > repo.
+  4. Tạo azure-pipelines.yml tại root.
+  5. Cấu hình trigger nhánh dev, checkout code, chọn Python, cài requirements, chạy pytest tests/.
+  6. Push một commit thử; xem pipeline pass/fail, sửa dependency/test nếu cần.
+Công cụ / file: https://dev.azure.com/; GitHub; azure-pipelines.yml; pytest.
+Sản phẩm bàn giao: Azure DevOps Pipeline; YAML CI; run log pass/fail.
+Tiêu chí nghiệm thu: Push vào dev kích hoạt pipeline, tự cài thư viện và chạy tests thật.
+Phụ thuộc / phối hợp: Cần repo có code/tests từ Hùng/Hiếu/Lâm; gửi link CI cho cả nhóm.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q05 | GĐ4 | Docker và Azure Container Registry
+-----------------------------------------------------------------------------
+Mục đích: Đóng gói API FastAPI của Lâm và đưa Docker image lên Azure.
+Các bước thực hiện:
+  1. Nhận Backend/API `/predict` từ Lâm và model artifact của Hiếu.
+  2. Phối hợp Lâm viết/kiểm tra Dockerfile: Python runtime, copy code, install requirements, mở port 8000, CMD uvicorn.
+  3. Build/run container local và test /health, /predict.
+  4. Tạo ACR Basic trên Azure nếu ngân sách cho phép.
+  5. Build/tag/push image retail-api:v1 lên ACR.
+  6. Kiểm tra ACR Repositories có image/tag.
+Công cụ / file: Docker; backend/Dockerfile; Azure Container Registry; az acr build.
+Sản phẩm bàn giao: Dockerfile chạy được; image local; ACR repository retail-api:v1; log build.
+Tiêu chí nghiệm thu: Container local chạy /health, /predict; ACR có image; secret không nằm trong image.
+Phụ thuộc / phối hợp: Phụ thuộc L03 và HI05; Q05 là đầu vào Q06/Q07.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q06 | GĐ4 | Triển khai Azure Container Instances
+-----------------------------------------------------------------------------
+Mục đích: Cho FastAPI chạy trên Cloud để website có thể gọi từ bên ngoài.
+Các bước thực hiện:
+  1. Trong ACI chọn image retail-api:v1 từ ACR.
+  2. Cấu hình CPU/RAM, port 8000, biến môi trường và quyền pull image.
+  3. Khởi chạy container group, kiểm tra trạng thái Running.
+  4. Xem logs để xác nhận model/Backend load thành công.
+  5. Gọi API /health và /predict trên endpoint thực tế.
+  6. Gửi FQDN/port cho Lâm cấu hình frontend.
+Công cụ / file: Azure Portal > Container Instances; ACR image; FastAPI /health, /predict.
+Sản phẩm bàn giao: ACI Running; endpoint API công khai theo cấu hình; log/smoke test; địa chỉ bàn giao Lâm.
+Tiêu chí nghiệm thu: Endpoint gọi được từ ngoài Azure; `/predict` trả JSON đúng mẫu.
+Phụ thuộc / phối hợp: Phụ thuộc Q05; bàn giao URL ACI cho Lâm (L05).
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+Q07 | GĐ5 | Triển khai Azure Kubernetes Service
+-----------------------------------------------------------------------------
+Mục đích: Thử nghiệm orchestration và autoscaling sau khi ACI đã chạy.
+Các bước thực hiện:
+  1. Kiểm tra lại quota, khả năng chi trả và quyền AKS trước khi tạo.
+  2. Tạo AKS Cluster và kết nối ACR.
+  3. Tạo deployment.yaml với image, port, replicas.
+  4. Tạo service.yaml để truy cập API.
+  5. Cấu hình HPA và resource requests/limits.
+  6. Deploy, kiểm tra kubectl get pods/services/hpa.
+  7. Phối hợp Lâm chạy k6; theo dõi replicas/latency/errors; lưu bằng chứng.
+  8. Dọn cluster khi kết thúc nếu không cần giữ.
+Công cụ / file: AKS; kubectl; deployment.yaml; service.yaml; HPA; k6.
+Sản phẩm bàn giao: AKS manifests, endpoint (nếu chạy được), k6 log, ảnh replicas/HPA và báo cáo chi phí.
+Tiêu chí nghiệm thu: Chỉ ghi autoscaling thành công khi thấy replicas đổi thật; nếu thiếu quota/chi phí, ghi rõ chưa triển khai.
+Phụ thuộc / phối hợp: Phụ thuộc Q05; phối hợp Lâm kiểm thử. Đây là mục mở rộng có điều kiện.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+3. PHỐI HỢP VÀ BÀN GIAO
+------------------------------------------------------------------------
+Quân (Q02) -> Hùng (H03): Azure Blob Storage và quyền truy cập.
+Quân (Q03) -> Hiếu (HI06): Azure ML Workspace/Compute.
+Lâm (L03) -> Quân (Q05): FastAPI và runtime yêu cầu.
+Quân (Q06/Q07) -> Lâm: Endpoint ACI, thông tin AKS nếu triển khai.
+
+GHI CHÚ
+------------------------------------------------------------------------
+Các nội dung triển khai Azure phụ thuộc quota, quyền truy cập và chi phí.
+Không commit API keys, mật khẩu hoặc file .env lên GitHub.
+Chỉ đánh dấu hoàn thành khi đã có mã nguồn, kết quả chạy và minh chứng tương ứng.
