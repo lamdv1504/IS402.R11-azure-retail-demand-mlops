@@ -1,0 +1,121 @@
+KẾ HOẠCH CÔNG VIỆC CÁ NHÂN - HIẾU
+========================================================================
+Dự án: IS402.R11-BT2 - Azure Retail Demand Forecasting MLOps
+Vai trò: Machine Learning Engineer
+Nguồn: Đồ án Điện toán đám mây.xlsx - kế hoạch 23 công việc gốc.
+Trạng thái: Các nhiệm vụ là kế hoạch, chưa mặc định đã hoàn thành.
+
+1. CÁC GIAI ĐOẠN THỰC HIỆN
+------------------------------------------------------------------------
+
+
+2. CÔNG VIỆC CHI TIẾT
+------------------------------------------------------------------------
+[HIẾU] - Machine Learning Engineer (6 công việc)
+=============================================================================
+
+HI01 | GĐ1 | Xác định bài toán
+-----------------------------------------------------------------------------
+Mục đích: Thống nhất bài toán dự báo số lượng bán của một sản phẩm trong các ngày tiếp theo.
+Các bước thực hiện:
+  1. Xác nhận cùng Hùng dataset có cột date, store, item, sales.
+  2. Xác định input: cửa hàng, sản phẩm, ngày/horizon và lịch sử sales.
+  3. Định nghĩa output: dự báo sales từng ngày, ví dụ 7 ngày.
+  4. Chốt MAE, RMSE, sMAPE dùng để đánh giá.
+  5. Viết ví dụ input/output để Lâm thiết kế API, nhấn mạnh cách lấy lịch sử bán.
+Công cụ / file: Data Dictionary Hùng; reports/ml_problem.md; JSON input/output mẫu.
+Sản phẩm bàn giao: Tài liệu mô tả target, input, output, horizon và metric; ví dụ forecast 7 ngày.
+Tiêu chí nghiệm thu: Hùng, Hiếu và Lâm hiểu cùng một ý nghĩa trường dữ liệu và kết quả cần trả.
+Phụ thuộc / phối hợp: Phụ thuộc H01; bàn giao đặc tả mô hình cho Lâm.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+HI02 | GĐ2 | Chia tập dữ liệu
+-----------------------------------------------------------------------------
+Mục đích: Chuẩn bị Train/Validation/Test theo thứ tự thời gian, tránh rò rỉ tương lai.
+Các bước thực hiện:
+  1. Nhận sales_processed.parquet từ Hùng.
+  2. Tạo src/models/split_data.py; chuyển date sang datetime và sort.
+  3. Chọn các mốc thời gian train/validation/test (70/15/15 chỉ là ví dụ, điều chỉnh theo dataset).
+  4. Không chia random; đảm bảo thời gian train < validation < test.
+  5. Lưu split/config và bảng số dòng, mốc ngày của từng phần.
+Công cụ / file: Python/pandas; src/models/split_data.py; split_config.
+Sản phẩm bàn giao: Code chia dữ liệu; Train/Validation/Test; bảng khoảng ngày và số dòng.
+Tiêu chí nghiệm thu: Các tập không chồng ngày, có dữ liệu đủ để tạo lag; không shuffle time series.
+Phụ thuộc / phối hợp: Phụ thuộc H02; là đầu vào HI03/HI04.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+HI03 | GĐ2 | Feature Engineering
+-----------------------------------------------------------------------------
+Mục đích: Tạo các đặc trưng thể hiện lịch sử và thời gian bán hàng.
+Các bước thực hiện:
+  1. Tạo src/features/feature_engineering.py.
+  2. Sort theo store, item, date.
+  3. Tạo lag_1, lag_7, lag_14, lag_28 bằng groupby shift.
+  4. Tạo rolling_mean_7 từ shift(1).rolling(7).mean() để không dùng sales hiện tại.
+  5. Thêm day_of_week và month.
+  6. Ghi danh sách feature và kiểm tra các dòng thiếu lag đầu chuỗi.
+Công cụ / file: Python/pandas; src/features/feature_engineering.py; dữ liệu feature.
+Sản phẩm bàn giao: File tạo feature; tập features; danh sách cột lag/rolling/date cho mô hình.
+Tiêu chí nghiệm thu: Feature chỉ dùng quá khứ; giá trị lag và rolling của một store-item kiểm tra thủ công đúng.
+Phụ thuộc / phối hợp: Phụ thuộc HI02; gửi lịch sử cần cho inference cho Lâm.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+HI04 | GĐ3 | Huấn luyện mô hình
+-----------------------------------------------------------------------------
+Mục đích: Chạy thử baseline và hai mô hình Machine Learning đã chọn.
+Các bước thực hiện:
+  1. Tạo baseline lag-7: lấy sales cùng thứ của tuần trước. Có thể bắt đầu ngay cuối GĐ2 để đạt mốc 1.
+  2. Tạo src/models/train.py; đọc features và split từ các bước trước.
+  3. Huấn luyện RandomForestRegressor trên train.
+  4. Huấn luyện XGBoost trên cùng feature và split.
+  5. Chạy predict trên validation, lưu dự báo và tham số train.
+  6. Lưu model artifact cho bước đánh giá.
+Công cụ / file: scikit-learn; xgboost; joblib; src/models/train.py.
+Sản phẩm bàn giao: Baseline; Random Forest/XGBoost artifacts; validation predictions; training log.
+Tiêu chí nghiệm thu: Model fit/predict chạy được; so sánh trên cùng dữ liệu validation; model load được.
+Phụ thuộc / phối hợp: Phụ thuộc HI03; chuyển kết quả cho HI05.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+HI05 | GĐ3 | Đánh giá mô hình
+-----------------------------------------------------------------------------
+Mục đích: So sánh để chọn mô hình dự báo tốt nhất thay vì chỉ báo model đã train.
+Các bước thực hiện:
+  1. Tính MAE, RMSE, sMAPE cho baseline, Random Forest, XGBoost.
+  2. Lập bảng 3 model × 3 metric trên validation.
+  3. Chọn model bằng metric đã thống nhất; test cuối cùng chỉ đánh giá sau lựa chọn.
+  4. Lưu best_model.joblib, metrics.json và danh sách/thứ tự feature.
+  5. Chuẩn bị hàm predict và input/output mẫu để Lâm dùng API.
+  6. Đối chiếu kết quả dự báo thử với lịch sử bán.
+Công cụ / file: scikit-learn.metrics; joblib; metrics.json; best_model.joblib; predict function.
+Sản phẩm bàn giao: best_model.joblib; metrics.json; bảng so sánh model; hàm predict/JSON mẫu.
+Tiêu chí nghiệm thu: Có lựa chọn model rõ ràng, metric có nguồn và hàm predict trả kết quả nhất quán với model.
+Phụ thuộc / phối hợp: Bàn giao model, feature order, predict function cho Lâm; scripts/metrics cho Quân.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+HI06 | GĐ4 | Đưa model lên Azure Machine Learning
+-----------------------------------------------------------------------------
+Mục đích: Chạy model trên Azure ML và quản lý phiên bản model.
+Các bước thực hiện:
+  1. Nhận Azure ML Workspace và Compute từ Quân.
+  2. Đóng gói script train, requirements và khai báo đường dẫn dữ liệu trên Blob.
+  3. Submit training job lên Azure ML, kiểm tra status/log/metrics.
+  4. Xác nhận artifact model được tạo từ job.
+  5. Đăng ký model vào Azure ML Model Registry với version và metadata.
+  6. Lưu run ID, model version, metric và ảnh minh chứng.
+Công cụ / file: Azure ML Studio; train.py; requirements.txt; Azure ML Job/Model Registry.
+Sản phẩm bàn giao: AML training job; model version; metrics/run ID; ảnh Azure ML.
+Tiêu chí nghiệm thu: Job thực sự chạy hoàn thành; version model có thể mở trong Azure ML Studio.
+Phụ thuộc / phối hợp: Phụ thuộc Q03, H03 và HI05; Quân hỗ trợ compute/workspace.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+3. PHỐI HỢP VÀ BÀN GIAO
+------------------------------------------------------------------------
+Hùng (H02) -> Hiếu (HI02/HI03): Parquet, schema và Data Dictionary.
+Quân (Q03) -> Hiếu (HI06): Azure ML Workspace, Compute và quyền truy cập.
+Hiếu (HI05) -> Lâm (L03): best_model.joblib, metrics.json, feature order và hàm predict.
+
+GHI CHÚ
+------------------------------------------------------------------------
+Các nội dung triển khai Azure phụ thuộc quota, quyền truy cập và chi phí.
+Không commit API keys, mật khẩu hoặc file .env lên GitHub.
+Chỉ đánh dấu hoàn thành khi đã có mã nguồn, kết quả chạy và minh chứng tương ứng.

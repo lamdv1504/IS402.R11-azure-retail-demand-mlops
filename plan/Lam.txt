@@ -1,0 +1,125 @@
+KẾ HOẠCH CÔNG VIỆC CÁ NHÂN - LÂM
+========================================================================
+Dự án: IS402.R11-BT2 - Azure Retail Demand Forecasting MLOps
+Vai trò: Application Engineer
+Nguồn: Đồ án Điện toán đám mây.xlsx - kế hoạch 23 công việc gốc.
+Trạng thái: Các nhiệm vụ là kế hoạch, chưa mặc định đã hoàn thành.
+
+1. CÁC GIAI ĐOẠN THỰC HIỆN
+------------------------------------------------------------------------
+
+
+2. CÔNG VIỆC CHI TIẾT
+------------------------------------------------------------------------
+[LÂM] - Application Engineer (6 công việc)
+=============================================================================
+
+L01 | GĐ1 | Phân tích chức năng ứng dụng
+-----------------------------------------------------------------------------
+Mục đích: Xác định 4 màn hình chính mà người dùng cần để sử dụng dự báo.
+Các bước thực hiện:
+  1. Xác định đối tượng dùng: người phân tích/quản lý bán hàng.
+  2. Liệt kê 4 trang: Dashboard, Forecast, Model Performance, Model Information.
+  3. Với Dashboard: tổng store/item, sales trung bình, sales theo thời gian.
+  4. Với Forecast: chọn store, item, số ngày, xem bảng/biểu đồ.
+  5. Với Model Performance: MAE/RMSE/sMAPE, Actual vs Predicted.
+  6. Với Model Information: version, ngày train, thuật toán và trạng thái.
+  7. Vẽ user flow/wireframe đơn giản trước khi code.
+Công cụ / file: Figma/draw.io hoặc giấy; docs/use_cases.md; wireframe.
+Sản phẩm bàn giao: Danh sách chức năng, use case/user flow, wireframe 4 trang.
+Tiêu chí nghiệm thu: Mỗi trang có mục đích và dữ liệu cần hiển thị; không có màn hình không liên quan đề tài.
+Phụ thuộc / phối hợp: Trao đổi HI01 để chốt nội dung form dự báo.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+L02 | GĐ2 | Xây dựng Backend API
+-----------------------------------------------------------------------------
+Mục đích: Tạo FastAPI làm trung gian giữa Frontend và model Machine Learning.
+Các bước thực hiện:
+  1. Tạo backend/app/main.py, schemas/prediction.py, services/predictor.py, api/routes.py.
+  2. Cài fastapi, uvicorn và dependency Python cần thiết.
+  3. Khởi tạo FastAPI(title=Retail Demand Forecast API).
+  4. Tạo GET /health trả status healthy.
+  5. Tạo GET /model-info trả thông tin model khi có (trước đó dùng trạng thái chưa sẵn sàng, không báo metric giả).
+  6. Chạy uvicorn và mở /docs kiểm tra Swagger.
+Công cụ / file: Python; FastAPI; Uvicorn; backend/app/main.py; http://localhost:8000/docs.
+Sản phẩm bàn giao: Backend skeleton; GET /health; GET /model-info; Swagger docs.
+Tiêu chí nghiệm thu: Chạy API local được; /health trả 200; Swagger mở được.
+Phụ thuộc / phối hợp: Cần HI01 để chốt API contract; L03 sẽ dùng model thật sau khi HI05 xong.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+L03 | GĐ3 | Tạo API dự báo
+-----------------------------------------------------------------------------
+Mục đích: Xây POST /predict để gọi model thật thay vì dữ liệu mô phỏng.
+Các bước thực hiện:
+  1. Nhận best_model.joblib, hàm predict và feature order từ Hiếu.
+  2. Chốt request store_id, item_id, horizon (ví dụ 7).
+  3. Backend kiểm tra input, lấy lịch sử bán từ nguồn dữ liệu thống nhất với Hùng/Hiếu.
+  4. Gọi hàm dự báo của Hiếu; với dự báo nhiều ngày phải dùng quy tắc multi-step thống nhất.
+  5. Trả JSON model_version và forecast [{date,predicted_sales}].
+  6. Test trên Swagger với store/item có lịch sử đủ dài và test khi thiếu input.
+Công cụ / file: FastAPI; backend/app/services/predictor.py; POST /predict; Swagger.
+Sản phẩm bàn giao: POST /predict chạy bằng model thật; JSON response mẫu; test request thành công/lỗi.
+Tiêu chí nghiệm thu: Response đúng số ngày dự báo, không trả dữ liệu giả hoặc NaN; input sai có thông báo rõ.
+Phụ thuộc / phối hợp: Phụ thuộc HI05 và dữ liệu lịch sử Hùng; bàn giao endpoint cho L04/L05 và Quân.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+L04 | GĐ2 | Xây dựng Frontend
+-----------------------------------------------------------------------------
+Mục đích: Thiết kế UI để người dùng xem và thao tác dự báo.
+Các bước thực hiện:
+  1. Chọn React hoặc Next.js theo thống nhất nhóm; khởi tạo frontend/.
+  2. Tạo components, pages, services và routing.
+  3. Tạo giao diện Dashboard, Forecast, Model Performance, Model Information theo wireframe.
+  4. Form Forecast có dropdown store, item, số ngày, nút Predict.
+  5. Chuẩn bị bảng/biểu đồ bằng Recharts; tạo predictionService gọi API.
+  6. Thêm loading/error/empty state; dữ liệu mẫu nếu dùng phải ghi mock.
+Công cụ / file: ReactJS hoặc Next.js; axios; recharts; frontend/src/services/predictionService.js.
+Sản phẩm bàn giao: Frontend 4 trang; form Forecast; bảng/biểu đồ; API service; ảnh giao diện.
+Tiêu chí nghiệm thu: UI chạy local, chọn được store/item/horizon; không nhầm mock với output thật.
+Phụ thuộc / phối hợp: Phụ thuộc L01, chạy song song L02; kết nối API thật ở L05.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+L05 | GĐ4 | Kết nối Frontend với Backend
+-----------------------------------------------------------------------------
+Mục đích: Gọi API local trước, sau đó chuyển sang endpoint Azure ACI/AKS do Quân bàn giao.
+Các bước thực hiện:
+  1. Trong GĐ3: dùng VITE_API_URL=http://localhost:8000 (nếu React Vite); gọi /predict local từ giao diện.
+  2. Parse forecast JSON thành bảng và biểu đồ.
+  3. Khi Q06 hoàn thành: đổi API_URL sang endpoint ACI thực tế; build/deploy frontend theo môi trường.
+  4. Nếu Q07 được triển khai, thử đổi sang endpoint AKS.
+  5. Kiểm tra CORS, timeout, lỗi API, validation và loading.
+  6. Chụp ảnh Network và kết quả dự báo thật.
+Công cụ / file: Frontend .env; axios/fetch; browser DevTools; /predict API; Cloud endpoint từ Quân.
+Sản phẩm bàn giao: Frontend gọi /predict local và ACI Cloud; ảnh kết quả/Network; cấu hình endpoint.
+Tiêu chí nghiệm thu: Nhập lựa chọn trên website thấy dự báo model thật; API lỗi có thông báo; Cloud endpoint là URL thật.
+Phụ thuộc / phối hợp: Phụ thuộc L03; bước Cloud phụ thuộc Q06; AKS phụ thuộc Q07. Bắt đầu kết nối local từ GĐ3.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+L06 | GĐ5 | Kiểm thử và bàn giao
+-----------------------------------------------------------------------------
+Mục đích: Kiểm tra các luồng chức năng trước demo và bàn giao sản phẩm ứng dụng.
+Các bước thực hiện:
+  1. Test store hợp lệ, item hợp lệ, horizon hợp lệ → có dự báo.
+  2. Test input sai/thiếu → báo lỗi rõ.
+  3. Test API tắt → thông báo không kết nối.
+  4. Test API trả chậm → có loading.
+  5. Test đổi model version → giao diện hiện đúng version.
+  6. Kiểm tra Dashboard/Forecast/Performance/Information và Swagger.
+  7. Bàn giao Frontend, FastAPI, Dockerfile, ảnh UI và test report.
+Công cụ / file: Browser DevTools; Swagger; pytest/manual test; reports/app_test_report.md.
+Sản phẩm bàn giao: Frontend, Backend, API /predict/health/model-info, Swagger, Dockerfile, ảnh UI, báo cáo test.
+Tiêu chí nghiệm thu: Luồng chính end-to-end hoạt động, lỗi được xử lý; website gọi API trên Azure; đủ minh chứng demo.
+Phụ thuộc / phối hợp: Phụ thuộc L05 và Q06; phối hợp Quân nếu kiểm thử AKS/k6.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+3. PHỐI HỢP VÀ BÀN GIAO
+------------------------------------------------------------------------
+Hiếu (HI05) -> Lâm (L03): Model và feature schema, JSON mẫu.
+Lâm (L03) -> Quân (Q05): FastAPI backend để Docker hóa.
+Quân (Q06) -> Lâm (L05): Endpoint ACI thực tế; AKS nếu được triển khai.
+
+GHI CHÚ
+------------------------------------------------------------------------
+Các nội dung triển khai Azure phụ thuộc quota, quyền truy cập và chi phí.
+Không commit API keys, mật khẩu hoặc file .env lên GitHub.
+Chỉ đánh dấu hoàn thành khi đã có mã nguồn, kết quả chạy và minh chứng tương ứng.

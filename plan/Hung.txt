@@ -1,0 +1,89 @@
+KẾ HOẠCH CÔNG VIỆC CÁ NHÂN - HÙNG
+========================================================================
+Dự án: IS402.R11-BT2 - Azure Retail Demand Forecasting MLOps
+Vai trò: Data Engineer
+Nguồn: Đồ án Điện toán đám mây.xlsx - kế hoạch 23 công việc gốc.
+Trạng thái: Các nhiệm vụ là kế hoạch, chưa mặc định đã hoàn thành.
+
+1. CÁC GIAI ĐOẠN THỰC HIỆN
+------------------------------------------------------------------------
+
+
+2. CÔNG VIỆC CHI TIẾT
+------------------------------------------------------------------------
+[HÙNG] - Data Engineer (4 công việc)
+=============================================================================
+
+H01 | GĐ1 | Thu thập dữ liệu
+-----------------------------------------------------------------------------
+Mục đích: Thu thập và hiểu bộ dữ liệu bán lẻ sẽ được dùng trong dự án.
+Các bước thực hiện:
+  1. Hỏi giảng viên có cho dùng Retail Store Item Demand Forecasting không (tài liệu tham khảo còn nhắc Diabetes).
+  2. Nếu được phép, tải dữ liệu từ Kaggle; giữ nguyên train.csv trong data/raw/.
+  3. Tạo thư mục data/raw/, data/processed/, data/external/.
+  4. Dùng pandas đọc head(), info(), describe(), isnull().sum(), duplicated().sum().
+  5. Đếm dòng, store, item, mốc ngày, sales trung bình; ghi nhận nhận xét vào notebook/báo cáo.
+Công cụ / file: Kaggle; VS Code; Python/pandas; data/raw/train.csv; notebooks/eda.ipynb.
+Sản phẩm bàn giao: train.csv (nếu được duyệt); notebook EDA; báo cáo nguồn, schema và khám phá dữ liệu.
+Tiêu chí nghiệm thu: Dữ liệu mở được; có số dòng, số cửa hàng/sản phẩm, thời gian, null/duplicate và sales trung bình; dataset đã chốt.
+Phụ thuộc / phối hợp: Bàn giao schema/source cho Hiếu; báo nhóm xác nhận dataset.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+H02 | GĐ2 | Làm sạch dữ liệu
+-----------------------------------------------------------------------------
+Mục đích: Biến dữ liệu thô thành dữ liệu có cấu trúc để Hiếu có thể huấn luyện.
+Các bước thực hiện:
+  1. Tạo src/data/preprocessing.py.
+  2. Đọc data/raw/train.csv; ép date sang datetime.
+  3. Kiểm tra khóa date-store-item bị trùng; chỉ drop_duplicates sau khi xác nhận quy tắc; không tự xóa/điền null tùy tiện.
+  4. Sắp xếp store, item, date; reset index.
+  5. Lưu data/processed/sales_processed.parquet.
+  6. Chạy lại script và so sánh số dòng/trước sau.
+Công cụ / file: Python/pandas/pyarrow; src/data/preprocessing.py; file Parquet.
+Sản phẩm bàn giao: preprocessing.py; sales_processed.parquet; log số dòng trước/sau xử lý.
+Tiêu chí nghiệm thu: Chạy python src/data/preprocessing.py thành công, Parquet đọc được và dữ liệu gốc vẫn giữ nguyên.
+Phụ thuộc / phối hợp: Bàn giao Parquet/schema cho Hiếu; là đầu vào của H03.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+H03 | GĐ2 | Đưa dữ liệu lên Azure Blob Storage
+-----------------------------------------------------------------------------
+Mục đích: Upload dữ liệu đã xử lý lên Storage Account do Quân tạo và xác nhận đọc được.
+Các bước thực hiện:
+  1. Chờ Quân tạo Storage Account/container processed-data và cấp quyền.
+  2. Cài azure-storage-blob; cấu hình kết nối an toàn qua biến môi trường hoặc Azure Identity (không commit secret).
+  3. Tạo src/data/upload_blob.py hoặc blob_storage.py.
+  4. Upload sales_processed.parquet vào processed-data.
+  5. Mở Azure Portal > Storage > Containers xác nhận file.
+  6. Tải thử/đọc lại để xác nhận dữ liệu khớp local.
+Công cụ / file: Azure Portal; Azure Blob Storage Python SDK; .env chỉ lưu local; src/data/upload_blob.py.
+Sản phẩm bàn giao: File sales_processed.parquet trên Blob; upload script; log/ảnh file trong container.
+Tiêu chí nghiệm thu: Upload và download thành công; file Blob đúng container, số dòng/schema khớp; không lộ connection string.
+Phụ thuộc / phối hợp: Phụ thuộc Q02 và H02; gửi Hiếu Blob path, cách đọc dữ liệu, Data Dictionary/EDA.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+H04 | GĐ5 | Benchmark và ETL
+-----------------------------------------------------------------------------
+Mục đích: Đo và báo cáo hiệu năng đọc/ghi, chuyển dữ liệu và truy vết các lần huấn luyện.
+Các bước thực hiện:
+  1. Đo dung lượng và thời gian đọc CSV so với Parquet trên cùng máy/dataset; chạy lặp để có số liệu.
+  2. Đo thời gian upload/download Azure Blob với file có kích thước xác định.
+  3. Nếu có điều kiện và Quân duyệt chi phí, so sánh độ trễ giữa Azure regions khác nhau.
+  4. Ghi quy trình ETL từ raw → cleaned → processed → Blob và cách chạy lại.
+  5. Tạo data version/đường dẫn lưu trữ có thể truy vết training run.
+  6. Đưa bảng đo và nhận xét vào báo cáo.
+Công cụ / file: time.perf_counter; pandas/pyarrow; Azure Blob; reports/benchmark.md.
+Sản phẩm bàn giao: Bảng thời gian đọc/ghi CSV/Parquet; upload/download; báo cáo ETL, versioning và region latency nếu có đo.
+Tiêu chí nghiệm thu: Có số đo thực tế, điều kiện đo và đơn vị; không ghi kết quả region nếu chưa thử.
+Phụ thuộc / phối hợp: Thực hiện đo sơ bộ song song GĐ3 nếu có thời gian; đưa minh chứng cho cả nhóm trong GĐ5.
+Trạng thái theo bản kế hoạch: Chưa bắt đầu
+
+3. PHỐI HỢP VÀ BÀN GIAO
+------------------------------------------------------------------------
+Quân (Q02) -> Hùng (H03): Storage Account, container và quyền truy cập.
+Hùng (H02/H03) -> Hiếu: Parquet sạch, schema, EDA, vị trí dữ liệu trên Blob.
+
+GHI CHÚ
+------------------------------------------------------------------------
+Các nội dung triển khai Azure phụ thuộc quota, quyền truy cập và chi phí.
+Không commit API keys, mật khẩu hoặc file .env lên GitHub.
+Chỉ đánh dấu hoàn thành khi đã có mã nguồn, kết quả chạy và minh chứng tương ứng.
