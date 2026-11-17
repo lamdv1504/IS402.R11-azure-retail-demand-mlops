@@ -163,16 +163,17 @@ The following diagram illustrates the Microsoft Azure MLOps reference architectu
 
 The project uses historical retail sales data for demand forecasting.
 
-**Proposed dataset:** [Store Item Demand Forecasting Challenge - Kaggle](https://www.kaggle.com/competitions/demand-forecasting-kernels-only/data)
+**Dataset:** [M5 Forecasting – Accuracy - Kaggle](https://www.kaggle.com/competitions/m5-forecasting-accuracy/data). The raw CSV files are stored locally in `data/raw/` and excluded from Git. See `reports/data_profile.md` for the H01 data profile and proposed MVP item list.
 
 The dataset contains daily sales records with the following attributes:
 
 | Column | Description |
 |---|---|
-| `date` | Sales transaction date |
-| `store` | Store identifier |
-| `item` | Product identifier |
-| `sales` | Number of units sold |
+| `item_id` | Product identifier |
+| `store_id` | Store identifier |
+| `d_1`…`d_1941` | Daily unit sales in the evaluation file |
+| `calendar.csv` | Mapping from day key to calendar date and events |
+| `sell_prices.csv` | Weekly prices by store and item |
 
 The primary forecasting objective is to predict future product sales using historical demand patterns.
 
@@ -207,7 +208,7 @@ Supports container orchestration and scalable deployment of machine learning ser
 - [Microsoft Azure MLOps Reference Architecture](https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/ai/mlops-python)
 - [Microsoft MLOpsPython Repository](https://github.com/Microsoft/MLOpsPython)
 - [Introduction to MLOps - Microsoft Learn](https://learn.microsoft.com/en-us/training/modules/start-ml-lifecycle-mlops/)
-- [Store Item Demand Forecasting Dataset](https://www.kaggle.com/competitions/demand-forecasting-kernels-only/data)
+- [M5 Forecasting – Accuracy Dataset](https://www.kaggle.com/competitions/m5-forecasting-accuracy/data)
 - [Diabetes Dataset - Kaggle (Assignment Reference)](https://www.kaggle.com/datasets/mathchi/diabetes-data-set)
 
 ---
