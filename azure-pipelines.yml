@@ -1,0 +1,33 @@
+trigger:
+  branches:
+    include:
+      - main
+      - dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  python.version: '3.9'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Cài đặt Python $(python.version)'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install flake8 pytest
+    if [ -f requirements-data.txt ]; then pip install -r requirements-data.txt; fi
+  displayName: 'Cài đặt thư viện (Dependencies)'
+
+- script: |
+    flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+    flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  displayName: 'Chạy kiểm tra code (Check Lint bằng Flake8)'
+  continueOnError: true
+
+- script: |
+    pytest tests/
+  displayName: 'Chạy Unit Test (bằng Pytest)'
