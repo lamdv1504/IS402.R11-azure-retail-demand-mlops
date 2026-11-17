@@ -1,0 +1,11 @@
+# Keep the original M5 data outside Git.
+data/raw/*.csv
+data/raw/**/*.csv
+data/raw/*.zip
+data/raw/**/*.zip
+
+# Local credentials and Python caches.
+.env
+**/kaggle.json
+__pycache__/
+*.py[cod]
