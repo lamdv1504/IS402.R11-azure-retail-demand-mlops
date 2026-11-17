@@ -1,0 +1,714 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Retail Demand Forecast API",
+    "description": "API Contract giao tiếp giữa Backend FastAPI và Frontend React cho dự án IS402.R11-BT2 - Azure Retail Demand Forecasting MLOps. Phạm vi dữ liệu dựa trên tập MVP M5 của Hùng (Cửa hàng CA_1, 300 sản phẩm đại diện, chu kỳ dự báo 28 ngày).",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Nguyen Trung Hieu (ML) & Doan Van Lam (App)",
+      "email": "23520494@gm.uit.edu.vn"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://retail-forecast-api.azurecontainer.io",
+      "description": "Azure Container Instances (ACI) Production Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Prediction",
+      "description": "Các endpoint thực hiện suy luận dự báo nhu cầu bán lẻ"
+    },
+    {
+      "name": "Model",
+      "description": "Thông tin cấu hình, phiên bản và chỉ số đánh giá của mô hình"
+    },
+    {
+      "name": "Metadata",
+      "description": "Danh mục siêu dữ liệu cửa hàng và sản phẩm phục vụ giao diện người dùng"
+    },
+    {
+      "name": "System",
+      "description": "Kiểm tra trạng thái hệ thống"
+    }
+  ],
+  "paths": {
+    "/predict": {
+      "post": {
+        "tags": ["Prediction"],
+        "summary": "Dự báo nhu cầu bán lẻ cho một sản phẩm tại cửa hàng trong 28 ngày",
+        "description": "Nhận mã cửa hàng (store_id), mã sản phẩm (item_id) và độ dài dự báo (horizon, mặc định 28 ngày). Trả về chuỗi dự báo doanh số hàng ngày (không âm) cùng metadata mô hình và dữ liệu.",
+        "operationId": "predictDemand",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictionRequest"
+              },
+              "examples": {
+                "foods_sample": {
+                  "summary": "Ví dụ sản phẩm ngành Thực phẩm (FOODS)",
+                  "value": {
+                    "store_id": "CA_1",
+                    "item_id": "FOODS_1_017",
+                    "horizon": 28
+                  }
+                },
+                "hobbies_sample": {
+                  "summary": "Ví dụ sản phẩm ngành Sở thích (HOBBIES)",
+                  "value": {
+                    "store_id": "CA_1",
+                    "item_id": "HOBBIES_1_003",
+                    "horizon": 28
+                  }
+                },
+                "household_sample": {
+                  "summary": "Ví dụ sản phẩm ngành Đồ gia dụng (HOUSEHOLD)",
+                  "value": {
+                    "store_id": "CA_1",
+                    "item_id": "HOUSEHOLD_1_011",
+                    "horizon": 28
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dự báo thành công. Trả về mảng 28 ngày dự báo số lượng bán.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PredictionResponse"
+                },
+                "examples": {
+                  "successful_forecast": {
+                    "summary": "Kết quả dự báo 28 ngày thành công",
+                    "value": {
+                      "store_id": "CA_1",
+                      "item_id": "FOODS_1_017",
+                      "dept_id": "FOODS_1",
+                      "cat_id": "FOODS",
+                      "state_id": "CA",
+                      "model_version": "xgb-regressor-v1.0.0",
+                      "data_version": "m5-ca1-300-v1",
+                      "forecast_start_date": "2016-05-23",
+                      "horizon": 28,
+                      "total_predicted_sales": 38.65,
+                      "forecast": [
+                        { "date": "2016-05-23", "day_of_week": "Monday", "predicted_sales": 1.42 },
+                        { "date": "2016-05-24", "day_of_week": "Tuesday", "predicted_sales": 1.15 },
+                        { "date": "2016-05-25", "day_of_week": "Wednesday", "predicted_sales": 0.98 },
+                        { "date": "2016-05-26", "day_of_week": "Thursday", "predicted_sales": 1.05 },
+                        { "date": "2016-05-27", "day_of_week": "Friday", "predicted_sales": 1.76 },
+                        { "date": "2016-05-28", "day_of_week": "Saturday", "predicted_sales": 2.14 },
+                        { "date": "2016-05-29", "day_of_week": "Sunday", "predicted_sales": 2.31 },
+                        { "date": "2016-05-30", "day_of_week": "Monday", "predicted_sales": 1.85 },
+                        { "date": "2016-05-31", "day_of_week": "Tuesday", "predicted_sales": 1.20 },
+                        { "date": "2016-06-01", "day_of_week": "Wednesday", "predicted_sales": 1.10 },
+                        { "date": "2016-06-02", "day_of_week": "Thursday", "predicted_sales": 1.05 },
+                        { "date": "2016-06-03", "day_of_week": "Friday", "predicted_sales": 1.68 },
+                        { "date": "2016-06-04", "day_of_week": "Saturday", "predicted_sales": 2.05 },
+                        { "date": "2016-06-05", "day_of_week": "Sunday", "predicted_sales": 2.22 },
+                        { "date": "2016-06-06", "day_of_week": "Monday", "predicted_sales": 1.35 },
+                        { "date": "2016-06-07", "day_of_week": "Tuesday", "predicted_sales": 1.12 },
+                        { "date": "2016-06-08", "day_of_week": "Wednesday", "predicted_sales": 0.95 },
+                        { "date": "2016-06-09", "day_of_week": "Thursday", "predicted_sales": 1.02 },
+                        { "date": "2016-06-10", "day_of_week": "Friday", "predicted_sales": 1.62 },
+                        { "date": "2016-06-11", "day_of_week": "Saturday", "predicted_sales": 1.98 },
+                        { "date": "2016-06-12", "day_of_week": "Sunday", "predicted_sales": 2.15 },
+                        { "date": "2016-06-13", "day_of_week": "Monday", "predicted_sales": 1.30 },
+                        { "date": "2016-06-14", "day_of_week": "Tuesday", "predicted_sales": 1.08 },
+                        { "date": "2016-06-15", "day_of_week": "Wednesday", "predicted_sales": 0.92 },
+                        { "date": "2016-06-16", "day_of_week": "Thursday", "predicted_sales": 1.00 },
+                        { "date": "2016-06-17", "day_of_week": "Friday", "predicted_sales": 1.55 },
+                        { "date": "2016-06-18", "day_of_week": "Saturday", "predicted_sales": 1.90 },
+                        { "date": "2016-06-19", "day_of_week": "Sunday", "predicted_sales": 2.05 }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request — Tham số đầu vào không hợp lệ (ví dụ: horizon không nằm trong khoảng 1-28).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error_code": "INVALID_HORIZON",
+                  "detail": "Tham số 'horizon' phải là số nguyên từ 1 đến 28.",
+                  "timestamp": "2026-11-17T15:48:15Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found — Cửa hàng hoặc sản phẩm không nằm trong phạm vi 300 sản phẩm MVP của cửa hàng CA_1.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error_code": "ITEM_NOT_FOUND",
+                  "detail": "Sản phẩm 'FOODS_9_999' tại cửa hàng 'CA_1' không tồn tại trong danh mục 300 sản phẩm MVP.",
+                  "timestamp": "2026-11-17T15:48:15Z"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity — Dữ liệu gửi lên sai định dạng Schema Pydantic.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponse"
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "loc": ["body", "horizon"],
+                      "msg": "value is not a valid integer",
+                      "type": "type_error.integer"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable — Mô hình học máy chưa được nạp hoặc dịch vụ đang khởi tạo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error_code": "MODEL_NOT_READY",
+                  "detail": "Mô hình dự báo chưa sẵn sàng hoặc đang được tải vào bộ nhớ. Vui lòng thử lại sau.",
+                  "timestamp": "2026-11-17T15:48:15Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/model-info": {
+      "get": {
+        "tags": ["Model"],
+        "summary": "Lấy thông tin siêu dữ liệu, phiên bản và các chỉ số đo lường của mô hình",
+        "description": "Trả về thông tin chi tiết về thuật toán mô hình đang phục vụ, phiên bản dữ liệu huấn luyện, danh sách đặc trưng và các metrics đánh giá chính xác (Subset RMSSE, Subset WRMSSE, MAE, RMSE).",
+        "operationId": "getModelInfo",
+        "responses": {
+          "200": {
+            "description": "Thông tin mô hình được trả về thành công.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelInfoResponse"
+                },
+                "example": {
+                  "model_name": "Retail Demand XGBoost Regressor",
+                  "model_version": "xgb-regressor-v1.0.0",
+                  "algorithm": "XGBoost (Extreme Gradient Boosting)",
+                  "framework_version": "xgboost 2.0.3, scikit-learn 1.4.1",
+                  "status": "ready",
+                  "training_date": "2026-11-17T14:30:00Z",
+                  "data_version": "m5-ca1-300-v1",
+                  "store_scope": ["CA_1"],
+                  "item_count": 300,
+                  "forecast_horizon": 28,
+                  "features_used": [
+                    "lag_1",
+                    "lag_7",
+                    "lag_14",
+                    "lag_28",
+                    "rolling_mean_7",
+                    "rolling_mean_28",
+                    "wday",
+                    "weekday",
+                    "month",
+                    "year",
+                    "event_name_1",
+                    "event_type_1",
+                    "snap_CA",
+                    "sell_price",
+                    "price_change_weekly",
+                    "is_active",
+                    "dept_id",
+                    "cat_id"
+                  ],
+                  "temporal_split": {
+                    "train_period": "d_1 to d_1885 (2011-01-29 to 2016-03-27)",
+                    "validation_period": "d_1886 to d_1913 (2016-03-28 to 2016-04-24)",
+                    "holdout_period": "d_1914 to d_1941 (2016-04-25 to 2016-05-22)"
+                  },
+                  "metrics": {
+                    "validation_subset_rmsse": 0.742,
+                    "validation_subset_wrmsse": 0.718,
+                    "validation_mae": 1.15,
+                    "validation_rmse": 2.03,
+                    "metric_scope_note": "Chỉ số được đo lường trên tập 300 sản phẩm MVP của cửa hàng CA_1 (Subset RMSSE/WRMSSE), không phải điểm số toàn cuộc thi M5."
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Mô hình chưa được nạp hoặc chưa có thông tin huấn luyện.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/items": {
+      "get": {
+        "tags": ["Metadata"],
+        "summary": "Lấy danh sách 300 sản phẩm thuộc phạm vi MVP của cửa hàng CA_1",
+        "description": "Endpoint hỗ trợ Frontend nạp dữ liệu vào dropdown chọn sản phẩm, lọc theo ngành hàng (cat_id) và phân ngành (dept_id).",
+        "operationId": "getMvpItems",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Lọc theo nhóm sản phẩm (FOODS, HOBBIES, HOUSEHOLD)",
+            "schema": {
+              "type": "string",
+              "enum": ["FOODS", "HOBBIES", "HOUSEHOLD"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Danh sách sản phẩm MVP.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemListResponse"
+                },
+                "example": {
+                  "store_id": "CA_1",
+                  "total_items": 300,
+                  "categories_breakdown": {
+                    "FOODS": 100,
+                    "HOBBIES": 100,
+                    "HOUSEHOLD": 100
+                  },
+                  "items": [
+                    { "item_id": "FOODS_1_017", "dept_id": "FOODS_1", "cat_id": "FOODS" },
+                    { "item_id": "HOBBIES_1_003", "dept_id": "HOBBIES_1", "cat_id": "HOBBIES" },
+                    { "item_id": "HOUSEHOLD_1_011", "dept_id": "HOUSEHOLD_1", "cat_id": "HOUSEHOLD" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["System"],
+        "summary": "Kiểm tra tình trạng sức khỏe của dịch vụ API",
+        "description": "Trả về trạng thái hoạt động của container, phiên bản mã nguồn và trạng thái sẵn sàng của mô hình dự báo.",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "Dịch vụ đang hoạt động bình thường.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                },
+                "example": {
+                  "status": "healthy",
+                  "service": "retail-demand-forecast-api",
+                  "version": "1.0.0",
+                  "model_loaded": true,
+                  "timestamp": "2026-11-17T15:48:15Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PredictionRequest": {
+        "type": "object",
+        "required": ["store_id", "item_id"],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "enum": ["CA_1"],
+            "description": "Mã cửa hàng thuộc phạm vi MVP",
+            "example": "CA_1"
+          },
+          "item_id": {
+            "type": "string",
+            "description": "Mã sản phẩm hợp lệ trong danh sách 300 sản phẩm MVP (reports/m5_mvp_items.csv)",
+            "example": "FOODS_1_017"
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 28,
+            "minimum": 1,
+            "maximum": 28,
+            "description": "Số ngày dự báo về tương lai (mặc định là 28 ngày)",
+            "example": 28
+          }
+        }
+      },
+      "DailyForecast": {
+        "type": "object",
+        "required": ["date", "day_of_week", "predicted_sales"],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Ngày dự báo (định dạng YYYY-MM-DD)",
+            "example": "2016-05-23"
+          },
+          "day_of_week": {
+            "type": "string",
+            "description": "Thứ trong tuần bằng tiếng Anh",
+            "example": "Monday"
+          },
+          "predicted_sales": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Số lượng đơn vị sản phẩm dự báo bán ra (không âm, làm tròn 2 chữ số thập phân)",
+            "example": 1.42
+          }
+        }
+      },
+      "PredictionResponse": {
+        "type": "object",
+        "required": [
+          "store_id",
+          "item_id",
+          "dept_id",
+          "cat_id",
+          "state_id",
+          "model_version",
+          "data_version",
+          "forecast_start_date",
+          "horizon",
+          "total_predicted_sales",
+          "forecast"
+        ],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "example": "CA_1"
+          },
+          "item_id": {
+            "type": "string",
+            "example": "FOODS_1_017"
+          },
+          "dept_id": {
+            "type": "string",
+            "example": "FOODS_1"
+          },
+          "cat_id": {
+            "type": "string",
+            "example": "FOODS"
+          },
+          "state_id": {
+            "type": "string",
+            "example": "CA"
+          },
+          "model_version": {
+            "type": "string",
+            "description": "Phiên bản mô hình đang phục vụ suy luận",
+            "example": "xgb-regressor-v1.0.0"
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Phiên bản tập dữ liệu đã dùng để huấn luyện mô hình",
+            "example": "m5-ca1-300-v1"
+          },
+          "forecast_start_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Ngày bắt đầu chu kỳ dự báo (liền sau ngày cuối cùng của dữ liệu lịch sử)",
+            "example": "2016-05-23"
+          },
+          "horizon": {
+            "type": "integer",
+            "example": 28
+          },
+          "total_predicted_sales": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Tổng số lượng sản phẩm dự báo bán ra trong toàn bộ chu kỳ 28 ngày",
+            "example": 38.65
+          },
+          "forecast": {
+            "type": "array",
+            "description": "Mảng danh sách các ngày dự báo (đúng bằng độ dài horizon)",
+            "items": {
+              "$ref": "#/components/schemas/DailyForecast"
+            }
+          }
+        }
+      },
+      "ModelMetrics": {
+        "type": "object",
+        "required": [
+          "validation_subset_rmsse",
+          "validation_subset_wrmsse",
+          "validation_mae",
+          "validation_rmse",
+          "metric_scope_note"
+        ],
+        "properties": {
+          "validation_subset_rmsse": {
+            "type": "number",
+            "description": "Chỉ số Root Mean Squared Scaled Error tính trên tập validation 300 sản phẩm",
+            "example": 0.742
+          },
+          "validation_subset_wrmsse": {
+            "type": "number",
+            "description": "Chỉ số Weighted RMSSE tính theo trọng số doanh thu của 300 sản phẩm",
+            "example": 0.718
+          },
+          "validation_mae": {
+            "type": "number",
+            "description": "Sai số tuyệt đối trung bình (đơn vị sản phẩm)",
+            "example": 1.15
+          },
+          "validation_rmse": {
+            "type": "number",
+            "description": "Căn bậc hai sai số bình phương trung bình",
+            "example": 2.03
+          },
+          "metric_scope_note": {
+            "type": "string",
+            "example": "Chỉ số được đo lường trên tập 300 sản phẩm MVP của cửa hàng CA_1 (Subset RMSSE/WRMSSE), không phải điểm số toàn cuộc thi M5."
+          }
+        }
+      },
+      "ModelInfoResponse": {
+        "type": "object",
+        "required": [
+          "model_name",
+          "model_version",
+          "algorithm",
+          "status",
+          "training_date",
+          "data_version",
+          "store_scope",
+          "item_count",
+          "forecast_horizon",
+          "features_used",
+          "temporal_split",
+          "metrics"
+        ],
+        "properties": {
+          "model_name": {
+            "type": "string",
+            "example": "Retail Demand XGBoost Regressor"
+          },
+          "model_version": {
+            "type": "string",
+            "example": "xgb-regressor-v1.0.0"
+          },
+          "algorithm": {
+            "type": "string",
+            "example": "XGBoost (Extreme Gradient Boosting)"
+          },
+          "framework_version": {
+            "type": "string",
+            "example": "xgboost 2.0.3, scikit-learn 1.4.1"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ready", "training", "uninitialized"],
+            "example": "ready"
+          },
+          "training_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-11-17T14:30:00Z"
+          },
+          "data_version": {
+            "type": "string",
+            "example": "m5-ca1-300-v1"
+          },
+          "store_scope": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["CA_1"]
+          },
+          "item_count": {
+            "type": "integer",
+            "example": 300
+          },
+          "forecast_horizon": {
+            "type": "integer",
+            "example": 28
+          },
+          "features_used": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "temporal_split": {
+            "type": "object",
+            "properties": {
+              "train_period": { "type": "string" },
+              "validation_period": { "type": "string" },
+              "holdout_period": { "type": "string" }
+            }
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/ModelMetrics"
+          }
+        }
+      },
+      "ItemSummary": {
+        "type": "object",
+        "required": ["item_id", "dept_id", "cat_id"],
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "example": "FOODS_1_017"
+          },
+          "dept_id": {
+            "type": "string",
+            "example": "FOODS_1"
+          },
+          "cat_id": {
+            "type": "string",
+            "example": "FOODS"
+          }
+        }
+      },
+      "ItemListResponse": {
+        "type": "object",
+        "required": ["store_id", "total_items", "categories_breakdown", "items"],
+        "properties": {
+          "store_id": {
+            "type": "string",
+            "example": "CA_1"
+          },
+          "total_items": {
+            "type": "integer",
+            "example": 300
+          },
+          "categories_breakdown": {
+            "type": "object",
+            "properties": {
+              "FOODS": { "type": "integer", "example": 100 },
+              "HOBBIES": { "type": "integer", "example": 100 },
+              "HOUSEHOLD": { "type": "integer", "example": 100 }
+            }
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemSummary"
+            }
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": ["status", "service", "version", "model_loaded", "timestamp"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "healthy"
+          },
+          "service": {
+            "type": "string",
+            "example": "retail-demand-forecast-api"
+          },
+          "version": {
+            "type": "string",
+            "example": "1.0.0"
+          },
+          "model_loaded": {
+            "type": "boolean",
+            "example": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-11-17T15:48:15Z"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error_code", "detail", "timestamp"],
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "example": "ITEM_NOT_FOUND"
+          },
+          "detail": {
+            "type": "string",
+            "example": "Chi tiết nguyên nhân lỗi"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-11-17T15:48:15Z"
+          }
+        }
+      },
+      "ValidationErrorItem": {
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "properties": {
+          "loc": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "ValidationErrorResponse": {
+        "type": "object",
+        "required": ["detail"],
+        "properties": {
+          "detail": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationErrorItem"
+            }
+          }
+        }
+      }
+    }
+  }
+}
