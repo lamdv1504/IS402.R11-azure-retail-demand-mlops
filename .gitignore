@@ -4,6 +4,10 @@ data/raw/**/*.csv
 data/raw/*.zip
 data/raw/**/*.zip
 
+# Generated datasets are recreated by src/data/preprocessing.py.
+data/processed/*.parquet
+data/processed/**/*.parquet
+
 # Local credentials and Python caches.
 .env
 **/kaggle.json
