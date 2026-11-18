@@ -47,3 +47,17 @@ lag_28/lag_56 không cần sales thực tế trong cửa sổ tương lai. HI05 
 đánh giá RMSSE, chọn model và xử lý final holdout.
 
 Xem [báo cáo huấn luyện HI04](../../reports/hi04_training.md).
+
+## HI05 — Chọn model, đánh giá và bàn giao predictor
+
+```powershell
+.\.venv-ml\Scripts\python.exe src/models/evaluate.py
+.\.venv-ml\Scripts\python.exe src/models/predict.py --item-id FOODS_1_017
+```
+
+`evaluate.py` chọn bằng RMSSE validation, lưu lựa chọn rồi mới đọc/chấm holdout
+một lần. Gói model và serving context nằm tại `artifacts/hi05/`; metric và các
+bảng so sánh/dự báo nằm ở `reports/hi05_*`. Nếu gói đã tồn tại, dùng predictor;
+lệnh evaluate sẽ dừng để giữ kết quả holdout đã ghi.
+
+Xem [hướng dẫn tích hợp HI05 → L03](../../docs/hi05_inference_handoff.md).
