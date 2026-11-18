@@ -1,0 +1,161 @@
+{
+  "task": "HI02",
+  "config": {
+    "data_version": "m5-ca1-300-v1",
+    "train_end_day": 1885,
+    "validation_end_day": 1913,
+    "test_end_day": 1941,
+    "horizon": 28,
+    "min_history_days": 28
+  },
+  "inputs": {
+    "parquet": {
+      "path": "data/processed/m5_sales_processed.parquet",
+      "sha256": "b00292494f0056a0c281ecb9c144110a93b52b415dddb1397b93eee9bed70aff",
+      "size_bytes": 620521
+    },
+    "calendar": {
+      "path": "data/raw/calendar.csv",
+      "sha256": "d12b5914ef03e66649adf5dd9e996e6602251c22b7a6af8f1f7e3aa12f8860f5",
+      "size_bytes": 103469
+    },
+    "item_list": {
+      "path": "reports/m5_mvp_items.csv",
+      "sha256": "8444acc7ac4eb527228141f242f1e60049db9b7902647dc5935e8342ec9c2cd9",
+      "size_bytes": 12342
+    },
+    "config": {
+      "path": "src/models/split_config.json",
+      "sha256": "7f8092a1507b34d46285959b9c7e022569f7d6a10c0121518f8606a19f1672cd",
+      "size_bytes": 160
+    }
+  },
+  "schema": {
+    "id": "category",
+    "item_id": "category",
+    "dept_id": "category",
+    "cat_id": "category",
+    "store_id": "category",
+    "state_id": "category",
+    "d": "str",
+    "sales": "int8",
+    "date": "datetime64[us]",
+    "wm_yr_wk": "int16",
+    "weekday": "category",
+    "wday": "int8",
+    "month": "int8",
+    "year": "int16",
+    "event_name_1": "category",
+    "event_type_1": "category",
+    "event_name_2": "category",
+    "event_type_2": "category",
+    "snap_CA": "int8",
+    "snap_TX": "int8",
+    "snap_WI": "int8",
+    "sell_price": "float32",
+    "day_number": "int32"
+  },
+  "splits": {
+    "train": {
+      "start_d": "d_1",
+      "end_d": "d_1885",
+      "start_date": "2011-01-29",
+      "end_date": "2016-03-27",
+      "day_count": 1885,
+      "row_count": 565500,
+      "series_count": 300,
+      "min_days_per_series": 1885,
+      "max_days_per_series": 1885,
+      "artifact": {
+        "path": "data/processed/splits/train.parquet",
+        "sha256": "26e1910d606ab23d1a1a63787ae12ea887549f18f8d74201a7162ffe24346877",
+        "size_bytes": 3032539
+      }
+    },
+    "validation": {
+      "start_d": "d_1886",
+      "end_d": "d_1913",
+      "start_date": "2016-03-28",
+      "end_date": "2016-04-24",
+      "day_count": 28,
+      "row_count": 8400,
+      "series_count": 300,
+      "min_days_per_series": 28,
+      "max_days_per_series": 28,
+      "artifact": {
+        "path": "data/processed/splits/validation.parquet",
+        "sha256": "09c36c62bfa2b2fb83aa8f44f805f78303761dea8db568784002c2f5ebde9ad0",
+        "size_bytes": 28165
+      },
+      "future_artifact": {
+        "path": "data/processed/splits/validation_future.parquet",
+        "sha256": "fd90caa328ab9faca7e705fb4fffab8d84376a71a0e537ca800e938cea5c0c6f",
+        "size_bytes": 23162
+      },
+      "history": {
+        "start_d": "d_1",
+        "end_d": "d_1885",
+        "start_date": "2011-01-29",
+        "end_date": "2016-03-27",
+        "day_count": 1885,
+        "row_count": 565500,
+        "series_count": 300,
+        "min_days_per_series": 1885,
+        "max_days_per_series": 1885
+      }
+    },
+    "test": {
+      "start_d": "d_1914",
+      "end_d": "d_1941",
+      "start_date": "2016-04-25",
+      "end_date": "2016-05-22",
+      "day_count": 28,
+      "row_count": 8400,
+      "series_count": 300,
+      "min_days_per_series": 28,
+      "max_days_per_series": 28,
+      "artifact": {
+        "path": "data/processed/splits/test.parquet",
+        "sha256": "1bd637826d5d8a0410648396eb0639e545eb56dcd188a0dd1b5719308d21ac45",
+        "size_bytes": 28734
+      },
+      "future_artifact": {
+        "path": "data/processed/splits/test_future.parquet",
+        "sha256": "44ece06495a8b204c97e80e66b72fe2976a825d8a7b07fc0c533f3d1fd9d83f9",
+        "size_bytes": 23488
+      },
+      "history": {
+        "start_d": "d_1",
+        "end_d": "d_1913",
+        "start_date": "2011-01-29",
+        "end_date": "2016-04-24",
+        "day_count": 1913,
+        "row_count": 573900,
+        "series_count": 300,
+        "min_days_per_series": 1913,
+        "max_days_per_series": 1913
+      }
+    }
+  },
+  "test_available": true,
+  "day_mapping": {
+    "path": "reports/hi02_day_mapping.csv",
+    "sha256": "fd81575c8ed35b005e703878b54765b461573da14ccbc45b70df2946493bdf90",
+    "size_bytes": 56153
+  },
+  "checks": {
+    "chronological_non_overlapping": true,
+    "complete_daily_series": true,
+    "calendar_mapping_matches": true,
+    "scope_matches": true,
+    "future_files_exclude_sales": true,
+    "minimum_history_days": 28
+  },
+  "usage": {
+    "validation_history": "train",
+    "test_history": "train + validation, chỉ sau khi chọn model",
+    "labels": "sales trong validation/test chỉ để đánh giá, không dùng làm lag/rolling trong chính cửa sổ đó",
+    "features": "HI03 dùng make_backtest_context; lag ngắn cần dự báo đệ quy, hoặc dùng lag an toàn >= horizon",
+    "test_status": "Có nhãn để đánh giá; HI02 chưa huấn luyện hoặc đánh giá model"
+  }
+}
