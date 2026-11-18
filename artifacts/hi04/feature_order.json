@@ -1,0 +1,18 @@
+[
+  "lag_28",
+  "lag_56",
+  "wday",
+  "month",
+  "year",
+  "snap_state",
+  "item_id_code",
+  "dept_id_code",
+  "cat_id_code",
+  "store_id_code",
+  "state_id_code",
+  "weekday_code",
+  "event_name_1_code",
+  "event_type_1_code",
+  "event_name_2_code",
+  "event_type_2_code"
+]
