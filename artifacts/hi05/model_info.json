@@ -1,0 +1,43 @@
+{
+  "model_name": "M5 Retail Demand xgboost",
+  "model_version": "hi05-xgboost-cb3a08fa5e82",
+  "algorithm": "xgboost",
+  "status": "ready",
+  "training_date": "2026-11-18T09:07:49.306654+00:00",
+  "data_version": "m5-ca1-300-v1",
+  "store_scope": [
+    "CA_1"
+  ],
+  "item_count": 300,
+  "forecast_horizon": 28,
+  "features_used": [
+    "lag_28",
+    "lag_56",
+    "wday",
+    "month",
+    "year",
+    "snap_state",
+    "item_id_code",
+    "dept_id_code",
+    "cat_id_code",
+    "store_id_code",
+    "state_id_code",
+    "weekday_code",
+    "event_name_1_code",
+    "event_type_1_code",
+    "event_name_2_code",
+    "event_type_2_code"
+  ],
+  "temporal_split": {
+    "train_period": "d_1...d_1885",
+    "validation_period": "d_1886...d_1913",
+    "holdout_period": "d_1914...d_1941"
+  },
+  "metrics": {
+    "validation_subset_rmsse": 0.7209842238186299,
+    "validation_subset_wrmsse": 0.7628474044181374,
+    "validation_mae": 1.0301821239416797,
+    "validation_rmse": 2.027790973483406,
+    "metric_scope_note": "CA_1 MVP 300 item-store series only. Subset RMSSE is the unweighted mean; Subset WRMSSE is revenue-weighted at the bottom level only, not the official 12-level/full-competition M5 score. Scales exclude leading zero demand; weights use the last 28 observed days before each forecast origin."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "selected_model": "xgboost",
+  "metric": "validation_subset_rmsse",
+  "tie_break": "lexicographic model name",
+  "validation_metrics": {
+    "seasonal_naive": {
+      "subset_rmsse": 0.9730377512944203,
+      "subset_wrmsse": 1.062760097957652,
+      "mae": 1.2645238095238096,
+      "rmse": 2.7247542484205276,
+      "series_count": 300,
+      "forecast_rows": 8400,
+      "horizon": 28,
+      "origin_day": 1885,
+      "scale_history_start_day": 1,
+      "weight_start_day": 1858,
+      "weight_end_day": 1885
+    },
+    "xgboost": {
+      "subset_rmsse": 0.7209842238186299,
+      "subset_wrmsse": 0.7628474044181374,
+      "mae": 1.0301821239416797,
+      "rmse": 2.027790973483406,
+      "series_count": 300,
+      "forecast_rows": 8400,
+      "horizon": 28,
+      "origin_day": 1885,
+      "scale_history_start_day": 1,
+      "weight_start_day": 1858,
+      "weight_end_day": 1885
+    }
+  },
+  "training_end_day": 1885,
+  "validation_end_day": 1913,
+  "refit_policy": "Keep the selected HI04 estimator unchanged for holdout and serving.",
+  "holdout_used_for_selection": false
+}
