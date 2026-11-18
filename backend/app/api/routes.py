@@ -12,7 +12,7 @@ from app.services import predictor
 
 router = APIRouter()
 ROOT = Path(__file__).resolve().parents[3]
-ITEMS_FILE = ROOT / "reports" / "m5_mvp_items.csv"
+ITEMS_FILE = ROOT / "reports" / "Hung" / "m5_mvp_items.csv"
 PARQUET_FILE = ROOT / "data" / "processed" / "m5_sales_processed.parquet"
 CATEGORIES = ("FOODS", "HOBBIES", "HOUSEHOLD")
 

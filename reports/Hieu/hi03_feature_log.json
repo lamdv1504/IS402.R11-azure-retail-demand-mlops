@@ -19,8 +19,8 @@
     },
     "hi02_split_log": {
       "path": "reports/Hieu/hi02_split_log.json",
-      "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
-      "size_bytes": 5148
+      "sha256": "c9dd248021db093a9062faa35a1b22e283332fdc449aa8d369423e741436b2b2",
+      "size_bytes": 5158
     },
     "calendar": {
       "path": "data/raw/calendar.csv",
@@ -82,5 +82,20 @@
     "path": "reports/Hieu/hi03_feature_schema.json",
     "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
     "size_bytes": 10079
+  },
+  "path_relocation": {
+    "baseline_commit": "e1a5741cc09d73b8864bfdf66810d91185e52603",
+    "note": "Verification references refreshed after documentation paths, CLI defaults and line endings changed. Original training/evaluation fingerprints are preserved below; model weights, features and metric values were not changed.",
+    "models_retrained": false,
+    "holdout_reevaluated": false,
+    "changed_references": [
+      {
+        "record": "inputs.hi02_split_log",
+        "original_path": "reports/hi02_split_log.json",
+        "original_sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
+        "original_size_bytes": 5148,
+        "current_path": "reports/Hieu/hi02_split_log.json"
+      }
+    ]
   }
 }

@@ -1,9 +1,16 @@
 # Keep HI05 bundle/report bytes stable for the recorded SHA-256 manifests.
 /artifacts/hi05/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
-/reports/Hieu/hi05_*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
-/reports/Hieu/hi05_*.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+/artifacts/hi04/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
+/reports/Hung/*.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+/reports/Hieu/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+/reports/Hieu/*.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
 
 # HI05 source fingerprints are recorded with LF line endings.
 /src/models/evaluate.py text eol=lf
 /src/models/metrics.py text eol=lf
 /src/models/predict.py text eol=lf
+/src/models/train.py text eol=lf
+/src/models/forecasting.py text eol=lf
+/src/models/split_config.json text eol=lf
+/src/models/train_config.json text eol=lf
+/src/features/feature_engineering.py text eol=lf

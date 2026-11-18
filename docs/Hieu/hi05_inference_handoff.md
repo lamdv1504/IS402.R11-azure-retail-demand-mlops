@@ -105,6 +105,13 @@ Lệnh evaluate yêu cầu split/log HI02, gói/log HI04 và calendar gốc. Nó
 file/checksum, dừng khi thiếu bàn giao. Các Parquet lớn HI02/HI03 không nằm trong
 Git và phải được tái tạo theo hướng dẫn của các task đó.
 
+Sau khi sắp xếp theo thành viên, log/schema ML nằm trong `reports/Hieu/`,
+danh sách MVP nằm trong `reports/Hung/`. Các log có mục `path_relocation` lưu
+checksum gốc trước khi chuyển đường dẫn; checksum đang dùng để xác minh đã
+được cập nhật cho đường dẫn/default mới. Đây là cập nhật cấu trúc, không phải
+lần huấn luyện hoặc đánh giá holdout mới. Git giữ dấu xuống dòng của các file
+có checksum theo `.gitattributes` để Windows/Linux checkout nhất quán.
+
 Lệnh đánh giá dừng nếu `artifacts/hi05/` đã có nội dung để tránh ghi đè kết quả
 holdout. Dùng báo cáo đã lưu cho quá trình tích hợp. Chỉ chạy đánh giá mới trong
 một thư mục riêng khi có mục đích nghiên cứu rõ ràng; không chọn/tune lại bằng

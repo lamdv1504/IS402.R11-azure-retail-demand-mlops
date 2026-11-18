@@ -53,7 +53,7 @@ Cách tính đối chiếu [M5 Competitors Guide](https://storage.googleapis.com
 - `reports/Hieu/hi05_sample_request.json`, `reports/Hieu/hi05_sample_response.json`: JSON thực.
 - `reports/Hieu/hi05_evaluation_log.json`: fingerprint đầu vào/artifact/code và phiên bản thư viện.
 
-Chi tiết chạy và tích hợp: [docs/Hieu/hi05_inference_handoff.md](../docs/Hieu/hi05_inference_handoff.md).
+Chi tiết chạy và tích hợp: [docs/Hieu/hi05_inference_handoff.md](../../docs/Hieu/hi05_inference_handoff.md).
 API `/predict` dùng model thật là phần tiếp theo L03 của Lâm; model local chưa được
 đăng ký Azure ML Model Registry (HI06).
 
