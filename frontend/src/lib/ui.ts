@@ -8,5 +8,5 @@ export const metricGrid = "mt-2.5 mb-6 grid grid-cols-4 gap-4 max-lg:grid-cols-2
 export const metricCard = `${card} flex min-h-41 flex-col items-start p-6 transition hover:-translate-y-0.5 hover:border-[#c2daca] max-sm:min-h-32 max-sm:p-4`;
 export const heading = "mb-5 flex items-start justify-between gap-6 max-sm:block";
 export const headingTitle = "text-[26px] leading-[1.3] font-bold tracking-[-0.035em] text-forest max-sm:text-2xl";
-export const pill = "inline-block rounded-[10px] border border-[#d8ecdc] bg-[#eef8f0] px-3 py-2 text-[13px] font-bold whitespace-nowrap text-[#36664e] max-sm:mt-3.5";
+export const pill = "inline-block max-w-full rounded-[10px] border border-[#d8ecdc] bg-[#eef8f0] px-3 py-2 text-[13px] font-bold break-words text-[#36664e] max-sm:mt-3.5";
 export const state = `${card} my-[18px] flex min-h-[110px] items-start gap-4 p-7 max-sm:p-5`;

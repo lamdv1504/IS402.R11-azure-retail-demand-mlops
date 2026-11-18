@@ -19,7 +19,15 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
       signal: controller.signal,
     });
     const body = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(typeof body.detail === "string" ? body.detail : `API trả lỗi ${response.status}.`);
+    if (!response.ok) {
+      const fallback: Record<number, string> = {
+        400: "Thông tin yêu cầu không hợp lệ.",
+        404: "Không tìm thấy cửa hàng hoặc sản phẩm trong phạm vi MVP.",
+        422: "Kiểm tra cửa hàng, sản phẩm và số ngày nguyên từ 1 đến 28.",
+        503: "Mô hình hoặc dữ liệu chưa sẵn sàng. Vui lòng thử lại sau.",
+      };
+      throw new Error(typeof body.detail === "string" ? body.detail : fallback[response.status] || `API trả lỗi ${response.status}.`);
+    }
     return body as T;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") throw new Error("API phản hồi quá chậm. Vui lòng thử lại.");
@@ -34,8 +42,6 @@ export const getHealth = () => api<Health>("/health");
 export const getCatalog = () => api<Catalog>("/items");
 export const getDashboard = () => api<DashboardData>("/dashboard");
 export const getModelInfo = () => api<ModelInfo>("/model-info");
-export const predictDemand = (store_id: string, item_id: string, horizon: number) =>
-  api<Prediction>("/predict", { method: "POST", body: JSON.stringify({ store_id, item_id, horizon }) });
-
 export const formatNumber = (value: number) => new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 2 }).format(value);
 export const formatDate = (value: string) => new Intl.DateTimeFormat("vi-VN", { timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
+export const formatWeekday = (value: string) => new Intl.DateTimeFormat("vi-VN", { weekday: "long", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
