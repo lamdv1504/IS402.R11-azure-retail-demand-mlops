@@ -9,7 +9,7 @@ python -m pip install -r requirements.txt
 python -m uvicorn app.main:app --reload
 ```
 
-Mở http://localhost:8000/docs để xem Swagger. `/health` trả tình trạng API và cờ `model_loaded`. `/items` đọc danh sách MVP từ `reports/Hung/m5_mvp_items.csv`. `/dashboard` là endpoint bổ sung để tổng hợp lượng bán thật từ `data/processed/m5_sales_processed.parquet` trên máy local. `/model-info` và `/predict` trả 503 khi chưa có model và metadata do Hiếu bàn giao trong HI05.
+Mở http://localhost:8000/docs để xem Swagger. `/health` trả tình trạng API và cờ `model_loaded`. `/items` đọc danh sách MVP từ `reports/Hung/m5_mvp_items.csv`. `/dashboard` là endpoint bổ sung để tổng hợp lượng bán thật từ `data/processed/m5_sales_processed.parquet` trên máy local. Sau L03, `/model-info` và `/predict` dùng gói HI05 thật; trả 503 khi gói chưa sẵn sàng. Cài dependency ML và chạy theo [hướng dẫn L03](l03_run_local.md).
 
 Backend mặc định cho phép frontend tại `localhost:3000` và `127.0.0.1:3000`. Nếu dùng origin khác, đặt `FRONTEND_ORIGINS` thành danh sách origin, phân tách bằng dấu phẩy.
 
