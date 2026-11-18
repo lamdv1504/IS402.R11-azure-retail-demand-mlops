@@ -1,0 +1,12 @@
+export const intro = "grid gap-x-10 gap-y-5 pt-[72px] pb-10 max-md:pt-14 max-sm:block max-sm:pb-14";
+export const eyebrow = "mb-5 text-[13px] leading-normal font-extrabold tracking-[0.055em] text-[#0d7045] uppercase";
+export const action = "inline-flex min-h-13 items-center justify-center gap-4 rounded-xl border border-[#22b663] bg-mint px-5 text-base font-extrabold whitespace-nowrap text-[#08371e] shadow-[0_4px_10px_#1aa95a20] transition hover:-translate-y-0.5 hover:bg-[#33d477] hover:shadow-[0_7px_14px_#1aa95a26] active:translate-y-px disabled:cursor-not-allowed disabled:border-[#dceee2] disabled:bg-[#dceee2] disabled:text-[#456a52] disabled:shadow-none";
+export const fact = "col-span-full flex items-center gap-2 text-sm font-semibold text-forest max-sm:mt-5 max-sm:text-[13px] [&>svg]:shrink-0 [&>svg]:text-[#16985c]";
+export const card = "rounded-[20px] border border-line bg-white";
+export const dataCard = `${card} mt-6 p-[30px] max-sm:p-5`;
+export const metricGrid = "mt-2.5 mb-6 grid grid-cols-4 gap-4 max-lg:grid-cols-2 max-sm:gap-2.5";
+export const metricCard = `${card} flex min-h-41 flex-col items-start p-6 transition hover:-translate-y-0.5 hover:border-[#c2daca] max-sm:min-h-32 max-sm:p-4`;
+export const heading = "mb-5 flex items-start justify-between gap-6 max-sm:block";
+export const headingTitle = "text-[26px] leading-[1.3] font-bold tracking-[-0.035em] text-forest max-sm:text-2xl";
+export const pill = "inline-block rounded-[10px] border border-[#d8ecdc] bg-[#eef8f0] px-3 py-2 text-[13px] font-bold whitespace-nowrap text-[#36664e] max-sm:mt-3.5";
+export const state = `${card} my-[18px] flex min-h-[110px] items-start gap-4 p-7 max-sm:p-5`;
