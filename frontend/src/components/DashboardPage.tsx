@@ -2,23 +2,21 @@
 
 import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Layers3, Package, Store } from "lucide-react";
-import { useEffect, useState } from "react";
 import { AppShell, PageTitle, StatePanel } from "@/components/AppShell";
 import { SalesChart } from "@/components/SalesChart";
-import { formatDate, formatNumber, getDashboard, type DashboardData } from "@/lib/api";
+import { formatDate, formatNumber, getDashboard } from "@/lib/api";
+import { useApiResource } from "@/lib/useApiResource";
 import { action, dataCard, eyebrow, fact, heading, headingTitle, intro, metricCard, metricGrid, pill } from "@/lib/ui";
 
 export default function DashboardPage() {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [error, setError] = useState("");
-  useEffect(() => { getDashboard().then(setData).catch(e => setError(e.message)); }, []);
+  const { data, error, retry } = useApiResource(getDashboard);
   return <AppShell>
     <section className={`${intro} pt-[84px] max-sm:pt-14 md:grid-cols-[minmax(0,1fr)_auto]`}>
       <PageTitle eyebrow="Tổng quan / CA_1" title="Dự báo nhu cầu bán lẻ tại CA_1." description="Theo dõi lượng bán của 300 sản phẩm M5 và xem nhu cầu 28 ngày tới khi model sẵn sàng."/>
       <Link className={`${action} self-center max-sm:mt-6`} href="/forecast">Xem dự báo <ArrowUpRight size={19}/></Link>
       <div className={fact}><span className="grid size-7 place-items-center rounded-full bg-[#dcf8e6]"><Layers3 size={19}/></span><span>3 nhóm hàng · 300 chuỗi sản phẩm–cửa hàng</span></div>
     </section>
-    {error ? <StatePanel title="Chưa có dữ liệu bán hàng" message={error} tone="warning"/> : !data ? <StatePanel title="Đang tải dữ liệu M5" message="Đang đọc bảng bán hàng đã xử lý."/> : <>
+    {error ? <StatePanel title="Chưa có dữ liệu bán hàng" message={error} tone="warning" onRetry={retry}/> : !data ? <StatePanel title="Đang tải dữ liệu M5" message="Đang đọc bảng bán hàng đã xử lý."/> : !data.daily_sales.length ? <StatePanel title="Chưa có dữ liệu tổng quan" message="Chưa có lịch sử bán hàng cho phạm vi này."/> : <>
       <section className={metricGrid} aria-label="Chỉ số tổng quan">
         <div className={metricCard}><Store size={20} className="mb-4 text-[#198e5a]"/><span className="text-sm font-semibold text-muted">Cửa hàng</span><strong className="mt-1 text-3xl font-extrabold tracking-tight">01</strong><small className="text-[13px] text-muted">{data.store_id}</small></div>
         <div className={metricCard}><Package size={20} className="mb-4 text-[#198e5a]"/><span className="text-sm font-semibold text-muted">Sản phẩm trong MVP</span><strong className="mt-1 text-3xl font-extrabold tracking-tight">{formatNumber(data.item_count)}</strong><small className="text-[13px] text-muted">FOODS · HOBBIES · HOUSEHOLD</small></div>
