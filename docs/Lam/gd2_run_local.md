@@ -24,4 +24,6 @@ npm run dev
 
 Mở http://localhost:3000. Frontend Next.js gọi backend tại `http://127.0.0.1:8000` theo mặc định. Muốn dùng backend khác, tạo `frontend/.env.local` với `NEXT_PUBLIC_API_URL=<API URL>`; file này được Git bỏ qua. Chạy `npm run build` để kiểm tra bản static export trong `frontend/out/`.
 
-Bốn trang: Dashboard, Forecast, Model Performance và Model Information. Form dự báo dùng `CA_1`, danh sách 300 item từ `/items`, horizon 1–28 ngày và mặc định 28. Giao diện hiển thị rõ loading, lỗi và trạng thái trống. Biểu đồ dự báo chỉ xuất hiện khi API trả kết quả thật; số ví dụ trong OpenAPI không được dùng làm dữ liệu giao diện. Biểu đồ actual vs predicted cần Hiếu bàn giao dữ liệu validation từng ngày ở giai đoạn sau.
+Bốn trang: Dashboard, Forecast, Model Performance và Model Information. Form dự báo dùng `CA_1`, danh sách 300 item từ `/items`, horizon 1–28 ngày và mặc định 28. Giao diện hiển thị rõ loading, lỗi và trạng thái trống. Biểu đồ dự báo chỉ xuất hiện khi API trả kết quả thật; số ví dụ trong OpenAPI không được dùng làm dữ liệu giao diện. Dữ liệu validation từng ngày của Hiếu đã có trong `reports/Hieu/hi05_validation_predictions.csv`; API hiện chỉ cung cấp metric tổng hợp, nên phần Actual vs Predicted giữ trạng thái trống chờ luồng tích hợp riêng ở L05.
+
+[Hướng dẫn và tiêu chí L04](l04_frontend.md) ghi cấu trúc frontend, cách chạy kiểm tra và các mục cần nghiệm thu trên trình duyệt.
