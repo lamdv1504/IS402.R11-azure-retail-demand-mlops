@@ -3,10 +3,11 @@ from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
 from app.schemas.prediction import PredictionRequest, PredictionResponse
+from app.schemas.model import ModelInfoResponse
 from app.services import predictor
 
 
@@ -48,12 +49,12 @@ def dashboard_data() -> dict:
 
 
 @router.get("/health", tags=["System"])
-def health():
+def health(request: Request):
     return {
         "status": "healthy",
         "service": "retail-demand-forecast-api",
         "version": "0.1.0",
-        "model_loaded": predictor.model_loaded(),
+        "model_loaded": getattr(request.app.state, "forecast_service", None) is not None,
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -85,22 +86,38 @@ def dashboard():
         return error(503, "DASHBOARD_NOT_READY", "Dữ liệu tổng quan chưa sẵn sàng.")
 
 
-@router.get("/model-info", tags=["Model"])
-def model_info():
-    return error(503, "MODEL_NOT_READY", "Mô hình chưa được bàn giao hoặc chưa được nạp.")
+def current_service(request: Request) -> predictor.ForecastService:
+    service = getattr(request.app.state, "forecast_service", None)
+    if service is None:
+        raise predictor.ModelNotReadyError("Mô hình chưa sẵn sàng. Vui lòng kiểm tra cấu hình và log backend.")
+    return service
+
+
+@router.get("/model-info", response_model=ModelInfoResponse, tags=["Model"])
+def model_info(request: Request):
+    try:
+        return current_service(request).info
+    except predictor.ModelNotReadyError as exc:
+        return error(503, "MODEL_NOT_READY", str(exc))
 
 
 @router.post("/predict", response_model=PredictionResponse, tags=["Prediction"])
-def predict(request: PredictionRequest):
+def predict(payload: PredictionRequest, request: Request):
     try:
         rows = catalog()
     except FileNotFoundError:
         return error(503, "CATALOG_NOT_READY", "Danh sách sản phẩm MVP chưa có trên máy chủ.")
-    if request.store_id != "CA_1" or not any(
-        row["store_id"] == request.store_id and row["item_id"] == request.item_id for row in rows
+    if payload.store_id != "CA_1" or not any(
+        row["store_id"] == payload.store_id and row["item_id"] == payload.item_id for row in rows
     ):
         return error(404, "ITEM_NOT_FOUND", "Store hoặc item không thuộc phạm vi MVP.")
     try:
-        return predictor.predict(store_id=request.store_id, item_id=request.item_id, horizon=request.horizon)
+        return current_service(request).predict(store_id=payload.store_id, item_id=payload.item_id, horizon=payload.horizon)
     except predictor.ModelNotReadyError as exc:
         return error(503, "MODEL_NOT_READY", str(exc))
+    except predictor.ItemNotFoundError as exc:
+        return error(404, "ITEM_NOT_FOUND", str(exc))
+    except predictor.ForecastDataError as exc:
+        return error(503, "FORECAST_DATA_NOT_READY", str(exc))
+    except predictor.InferenceError as exc:
+        return error(500, "INFERENCE_FAILED", str(exc))
