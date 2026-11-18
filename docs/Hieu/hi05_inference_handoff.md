@@ -2,7 +2,7 @@
 
 HI05 thuộc GĐ3. Gói local nằm ở `artifacts/hi05/`; dùng Python 3.13 và
 `requirements-ml.txt`. Danh sách phiên bản đã chạy nằm trong
-`reports/hi05_evaluation_log.json`. Chạy lệnh từ thư mục gốc repository.
+`reports/Hieu/hi05_evaluation_log.json`. Chạy lệnh từ thư mục gốc repository.
 
 ## Chạy dự báo có sẵn
 
@@ -44,7 +44,7 @@ response = predictor.predict(
 
 Response khớp `PredictionResponse` trong `docs/api_contract.json`, gồm model/data
 version, metadata sản phẩm và đúng `horizon` ngày. Ví dụ thực tế nằm ở
-`reports/hi05_sample_request.json` và `reports/hi05_sample_response.json`.
+`reports/Hieu/hi05_sample_request.json` và `reports/Hieu/hi05_sample_response.json`.
 `artifacts/hi05/model_info.json` là payload tham khảo cho `/model-info`.
 Thời điểm training trong payload được ước lượng bằng mtime artifact HI04;
 log HI04 chưa ghi thời điểm fit. Nguồn thời gian được ghi trong metadata.
@@ -90,7 +90,7 @@ lịch sử quan sát đến `d_1913`; forecast production dùng lịch sử đ�
 Các nhãn holdout chỉ được dùng làm lịch sử production sau khi đã chấm điểm.
 
 `metrics.json` lưu RMSSE/Subset WRMSSE/MAE/RMSE; các bảng dự báo và metric từng
-chuỗi ở `reports/hi05_*.csv`. Subset WRMSSE ở đây chỉ có 300 chuỗi item–store,
+chuỗi ở `reports/Hieu/hi05_*.csv`. Subset WRMSSE ở đây chỉ có 300 chuỗi item–store,
 trọng số doanh thu 28 ngày trước origin; chưa tổng hợp 12 cấp của toàn cuộc thi.
 Không diễn giải kết quả là WRMSSE M5 đầy đủ.
 

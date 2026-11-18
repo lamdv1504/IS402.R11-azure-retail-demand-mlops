@@ -5,8 +5,8 @@
 Đã chạy HI02 trên dữ liệu H02 của Hùng: **582.300 dòng, 300 chuỗi sản phẩm–cửa
 hàng tại CA_1**, có nhãn từ `d_1` đến `d_1941`. Phụ thuộc cần thiết đều có trên
 máy: `data/processed/m5_sales_processed.parquet`, `data/raw/calendar.csv`,
-`reports/m5_mvp_items.csv` và schema trong `reports/h02_processing_log.json`.
-Các mốc chia tuân theo HI01 tại `reports/ml_problem.md` và mục HI02 trong kế hoạch.
+`reports/Hung/m5_mvp_items.csv` và schema trong `reports/Hung/h02_processing_log.json`.
+Các mốc chia tuân theo HI01 tại `reports/Hieu/ml_problem.md` và mục HI02 trong kế hoạch.
 
 HI02 chạy local, không cần Azure Workspace, Blob hoặc model từ thành viên khác.
 Script dừng trước khi xuất file nếu thiếu Parquet, calendar, danh sách MVP hoặc
@@ -55,8 +55,8 @@ Các file bàn giao:
 | `data/processed/splits/test.parquet` | Nhãn holdout cuối, chỉ dùng đánh giá sau khi chọn model |
 | `data/processed/splits/validation_future.parquet` | Định danh/lịch/giá của cửa sổ validation, đã bỏ `sales` |
 | `data/processed/splits/test_future.parquet` | Định danh/lịch/giá của cửa sổ test, đã bỏ `sales` |
-| `reports/hi02_day_mapping.csv` | 1.941 dòng mapping `day_number,d,date,split` |
-| `reports/hi02_split_log.json` | Cấu hình, schema, mốc ngày, số dòng/chuỗi, lịch sử từng backtest và SHA-256 đầu vào/đầu ra |
+| `reports/Hieu/hi02_day_mapping.csv` | 1.941 dòng mapping `day_number,d,date,split` |
+| `reports/Hieu/hi02_split_log.json` | Cấu hình, schema, mốc ngày, số dòng/chuỗi, lịch sử từng backtest và SHA-256 đầu vào/đầu ra |
 
 Parquet thuộc dữ liệu sinh lại, được `.gitignore` bỏ qua theo quy ước H02.
 Thành viên khác cần nhận Parquet H02 và calendar từ Hùng hoặc nơi lưu dữ liệu

@@ -163,7 +163,7 @@ The following diagram illustrates the Microsoft Azure MLOps reference architectu
 
 The project uses historical retail sales data for demand forecasting.
 
-**Dataset:** [M5 Forecasting – Accuracy - Kaggle](https://www.kaggle.com/competitions/m5-forecasting-accuracy/data). The raw CSV files are stored locally in `data/raw/` and excluded from Git. See `reports/data_profile.md` for the H01 data profile and proposed MVP item list.
+**Dataset:** [M5 Forecasting – Accuracy - Kaggle](https://www.kaggle.com/competitions/m5-forecasting-accuracy/data). The raw CSV files are stored locally in `data/raw/` and excluded from Git. See `reports/Hung/data_profile.md` for the H01 data profile and proposed MVP item list.
 
 The dataset contains daily sales records with the following attributes:
 

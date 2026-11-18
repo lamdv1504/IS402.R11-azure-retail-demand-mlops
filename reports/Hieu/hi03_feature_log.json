@@ -18,7 +18,7 @@
       "size_bytes": 28734
     },
     "hi02_split_log": {
-      "path": "reports/hi02_split_log.json",
+      "path": "reports/Hieu/hi02_split_log.json",
       "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
       "size_bytes": 5148
     },
@@ -79,7 +79,7 @@
     }
   },
   "schema": {
-    "path": "reports/hi03_feature_schema.json",
+    "path": "reports/Hieu/hi03_feature_schema.json",
     "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
     "size_bytes": 10079
   }

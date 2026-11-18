@@ -90,12 +90,12 @@
   },
   "inputs": {
     "hi04_log": {
-      "path": "reports/hi04_training_log.json",
+      "path": "reports/Hieu/hi04_training_log.json",
       "sha256": "53dd14e1d04b1a9498aa0ac7a6a5a91d5ecb82394c5cb1cf43700787cb2a3834",
       "size_bytes": 5992
     },
     "hi02_log": {
-      "path": "reports/hi02_split_log.json",
+      "path": "reports/Hieu/hi02_split_log.json",
       "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
       "size_bytes": 5148
     },
@@ -202,32 +202,32 @@
   },
   "reports": {
     "hi05_future_predictions.csv": {
-      "path": "reports/hi05_future_predictions.csv",
+      "path": "reports/Hieu/hi05_future_predictions.csv",
       "sha256": "6d87e6b63638dbc4da7217cb8a9cff5d7b937beb61ab33636569b6ab92ac891b",
       "size_bytes": 521370
     },
     "hi05_model_comparison.csv": {
-      "path": "reports/hi05_model_comparison.csv",
+      "path": "reports/Hieu/hi05_model_comparison.csv",
       "sha256": "bbadfedc323840a0d1abb4ba668802dbd46cc218631b87c86fe58eeac1ec52f0",
       "size_bytes": 378
     },
     "hi05_test_predictions.csv": {
-      "path": "reports/hi05_test_predictions.csv",
+      "path": "reports/Hieu/hi05_test_predictions.csv",
       "sha256": "1b185db6e95ae8ae67a0d82a91ae03e048b635fa853525ef2d1be303cda0514d",
       "size_bytes": 538390
     },
     "hi05_test_series_metrics.csv": {
-      "path": "reports/hi05_test_series_metrics.csv",
+      "path": "reports/Hieu/hi05_test_series_metrics.csv",
       "sha256": "78675cd064f995341b9e757fc19e2a6409f99fc97772fd77cf3407c24bc92682",
       "size_bytes": 34230
     },
     "hi05_validation_predictions.csv": {
-      "path": "reports/hi05_validation_predictions.csv",
+      "path": "reports/Hieu/hi05_validation_predictions.csv",
       "sha256": "3e4e3f89a618e9726426f81c76059ad3a0fed5c571e76163790e22c6010a4110",
       "size_bytes": 1143699
     },
     "hi05_validation_series_metrics.csv": {
-      "path": "reports/hi05_validation_series_metrics.csv",
+      "path": "reports/Hieu/hi05_validation_series_metrics.csv",
       "sha256": "803e2acdea838c5c52ab0d8114bea32206c7d0e46390452dcf56e884b9aa4f03",
       "size_bytes": 73732
     }

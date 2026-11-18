@@ -3,7 +3,7 @@
 ## Đầu vào và phạm vi
 
 - Nguồn có nhãn: `data/raw/sales_train_evaluation.csv`, từ `d_1` đến `d_1941`. Không nối thêm `sales_train_validation.csv` vì lịch sử của hai file trùng nhau.
-- Phạm vi nhóm đã xác nhận: cửa hàng `CA_1` và 300 sản phẩm trong `reports/m5_mvp_items.csv` (100 sản phẩm mỗi nhóm `FOODS`, `HOBBIES`, `HOUSEHOLD`). Script lọc phạm vi này trước khi chuyển dữ liệu từ dạng nhiều cột sang từng dòng.
+- Phạm vi nhóm đã xác nhận: cửa hàng `CA_1` và 300 sản phẩm trong `reports/Hung/m5_mvp_items.csv` (100 sản phẩm mỗi nhóm `FOODS`, `HOBBIES`, `HOUSEHOLD`). Script lọc phạm vi này trước khi chuyển dữ liệu từ dạng nhiều cột sang từng dòng.
 - Bảng bổ sung: `data/raw/calendar.csv` và `data/raw/sell_prices.csv`.
 
 Chạy lại từ thư mục gốc repo:
@@ -46,7 +46,7 @@ Tất cả 104.538 dòng thiếu giá nằm trước tuần đầu tiên có gi�
 - Sự kiện và SNAP: `event_name_1/2`, `event_type_1/2`, `snap_CA/TX/WI`.
 - Giá: `sell_price` (float32, có thể thiếu ở giai đoạn đầu).
 
-Schema từng cột, số dòng, giá trị thiếu và kích thước được ghi trong `reports/h02_processing_log.json`. Hiếu có thể đọc dữ liệu bằng:
+Schema từng cột, số dòng, giá trị thiếu và kích thước được ghi trong `reports/Hung/h02_processing_log.json`. Hiếu có thể đọc dữ liệu bằng:
 
 ```python
 import pandas as pd

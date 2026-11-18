@@ -66,8 +66,8 @@ RMSSE/WRMSSE toàn cuộc thi. HI05 tiếp tục metric theo chuỗi, chọn mod
 | `artifacts/hi04/feature_schema.json` | Schema/vocabulary train HI03 |
 | `artifacts/hi04/training_config.json` | Snapshot cấu hình lần chạy |
 | `artifacts/hi04/model_metadata.json` | Phiên bản dựa theo hash model, data version, phạm vi, cửa sổ |
-| `reports/hi04_validation_predictions.csv` | 8.400 dòng gồm khóa, ngày, actual, seasonal naive và XGBoost |
-| `reports/hi04_training_log.json` | Fingerprint input/source/artifact, thư viện, thời gian fit, checks và metrics |
+| `reports/Hieu/hi04_validation_predictions.csv` | 8.400 dòng gồm khóa, ngày, actual, seasonal naive và XGBoost |
+| `reports/Hieu/hi04_training_log.json` | Fingerprint input/source/artifact, thư viện, thời gian fit, checks và metrics |
 
 Model dùng định dạng native UBJSON để giữ thông tin phân loại theo
 [hướng dẫn XGBoost](https://xgboost.readthedocs.io/en/stable/tutorials/categorical.html).

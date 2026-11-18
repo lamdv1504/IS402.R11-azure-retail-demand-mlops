@@ -20,7 +20,7 @@
       "size_bytes": 103469
     },
     "item_list": {
-      "path": "reports/m5_mvp_items.csv",
+      "path": "reports/Hung/m5_mvp_items.csv",
       "sha256": "8444acc7ac4eb527228141f242f1e60049db9b7902647dc5935e8342ec9c2cd9",
       "size_bytes": 12342
     },
@@ -139,7 +139,7 @@
   },
   "test_available": true,
   "day_mapping": {
-    "path": "reports/hi02_day_mapping.csv",
+    "path": "reports/Hieu/hi02_day_mapping.csv",
     "sha256": "fd81575c8ed35b005e703878b54765b461573da14ccbc45b70df2946493bdf90",
     "size_bytes": 56153
   },

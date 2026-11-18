@@ -4,7 +4,7 @@
 **Giai đoạn:** GĐ1 — Khởi tạo dự án & Xác định bài toán  
 **Tác giả:** Nguyễn Trung Hiếu (Machine Learning Engineer)  
 **Phối hợp & Tiếp nhận:** Lê Hoàng Hùng (Data Engineer — H01, H02), Đoàn Văn Lâm (Application Engineer — L01, L02, L03), Lê Hồng Quân (Cloud/DevOps Engineer — Q01, Q02, Q03)  
-**Tài liệu tham chiếu:** `reports/data_profile.md`, `reports/h02_processing.md`, `reports/h02_processing_log.json`, `reports/m5_mvp_items.csv`
+**Tài liệu tham chiếu:** `reports/Hung/data_profile.md`, `reports/Hung/h02_processing.md`, `reports/Hung/h02_processing_log.json`, `reports/Hung/m5_mvp_items.csv`
 
 ---
 
@@ -37,13 +37,13 @@ Dữ liệu thô M5 gồm 5 file CSV đặt trong `data/raw/` (được loại t
 
 ## 3. Phạm vi Dữ liệu MVP Thực tế (Bàn giao từ Hùng — H01/H02)
 
-Để tối ưu hóa chi phí điện toán đám mây Azure (theo hạn mức subscription sinh viên) và đảm bảo tính khả thi trong việc huấn luyện mô hình, nhóm đã thống nhất và chốt phạm vi dữ liệu Minimum Viable Product (MVP) do Hùng bàn giao tại `reports/data_profile.md` và `reports/h02_processing.md`:
+Để tối ưu hóa chi phí điện toán đám mây Azure (theo hạn mức subscription sinh viên) và đảm bảo tính khả thi trong việc huấn luyện mô hình, nhóm đã thống nhất và chốt phạm vi dữ liệu Minimum Viable Product (MVP) do Hùng bàn giao tại `reports/Hung/data_profile.md` và `reports/Hung/h02_processing.md`:
 
 ```mermaid
 flowchart TD
     RawM5["M5 Raw Data (30.490 chuỗi, d_1..d_1941)"] --> FilterScope["Lọc Phạm vi MVP H01\nCửa hàng: CA_1\n300 sản phẩm (seed=42)"]
     FilterScope --> Melt["Unpivot d_1..d_1941 sang dạng dọc\n582.300 dòng"]
-    FilterScope --> ScopeCSV["reports/m5_mvp_items.csv\n(100 FOODS, 100 HOBBIES, 100 HOUSEHOLD)"]
+    FilterScope --> ScopeCSV["reports/Hung/m5_mvp_items.csv\n(100 FOODS, 100 HOBBIES, 100 HOUSEHOLD)"]
     Melt --> JoinCal["Ghép Calendar (theo 'd')\n582.300 dòng (0 duplicate)"]
     JoinCal --> JoinPrice["Ghép Prices (theo store_id, item_id, wm_yr_wk)\n582.300 dòng"]
     JoinPrice --> CleanData["data/processed/m5_sales_processed.parquet\nData Version: m5-ca1-300-v1 (v1.0.0-mvp)"]
@@ -62,7 +62,7 @@ flowchart TD
 - **Trùng lặp khóa định danh (`item_id`, `store_id`, `d`):** **0** (không có bản ghi trùng lặp).
 - **Tập tin lưu trữ dữ liệu sạch:** `data/processed/m5_sales_processed.parquet` (kích thước nén ~620,52 KiB, 22 cột dữ liệu, kiểu nén PyArrow tối ưu bộ nhớ).
 - **Mã phiên bản dữ liệu (Data Version):** `m5-ca1-300-v1` (phiên bản ngữ nghĩa `v1.0.0-mvp`).
-- **Nhật ký xử lý (Audit Log):** `reports/h02_processing_log.json`.
+- **Nhật ký xử lý (Audit Log):** `reports/Hung/h02_processing_log.json`.
 
 ### 3.2. Đặc điểm thống kê quan trọng của mẫu MVP
 1. **Hiện tượng Nhu cầu Gián đoạn (Intermittent / Zero-Inflated Sales):**
@@ -310,8 +310,8 @@ sequenceDiagram
     L->>Q: Bàn giao Dockerfile & Backend cho ACI/AKS (L03 -> Q05, Q06)
 ```
 
-1. **Hùng (Data Engineer):** Đã hoàn tất H01 và H02; dữ liệu sạch `m5_sales_processed.parquet` và danh sách 300 sản phẩm tại `reports/m5_mvp_items.csv` sẵn sàng. Tiếp tục thực hiện H03 (đẩy dữ liệu lên Azure Blob Storage sau khi Quân cấp quyền).
-2. **Hiếu (ML Engineer):** Hoàn thành tài liệu xác định bài toán `reports/ml_problem.md` và `docs/api_contract.json` (HI01). Tiếp tục triển khai tạo script chia dữ liệu `src/models/split_data.py` (HI02) và tạo đặc trưng `src/features/feature_engineering.py` (HI03).
+1. **Hùng (Data Engineer):** Đã hoàn tất H01 và H02; dữ liệu sạch `m5_sales_processed.parquet` và danh sách 300 sản phẩm tại `reports/Hung/m5_mvp_items.csv` sẵn sàng. Tiếp tục thực hiện H03 (đẩy dữ liệu lên Azure Blob Storage sau khi Quân cấp quyền).
+2. **Hiếu (ML Engineer):** Hoàn thành tài liệu xác định bài toán `reports/Hieu/ml_problem.md` và `docs/api_contract.json` (HI01). Tiếp tục triển khai tạo script chia dữ liệu `src/models/split_data.py` (HI02) và tạo đặc trưng `src/features/feature_engineering.py` (HI03).
 3. **Lâm (Application Engineer):** Nhận đặc tả API tại `docs/api_contract.json` để tiến hành tạo khung FastAPI (`backend/app/main.py`) và dựng các màn hình React (Dashboard, Forecast, Model Performance, Model Info) theo các schema đã thỏa thuận.
 4. **Quân (Cloud/DevOps Engineer):** Tiếp tục cấu hình hạ tầng Azure (Resource Group, Azure Blob Storage, Azure ML Workspace) để phục vụ lưu trữ Parquet (H03) và chạy Azure ML Job (HI06).
 

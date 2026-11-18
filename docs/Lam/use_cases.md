@@ -4,7 +4,7 @@
 
 ## Nguồn và phạm vi
 
-Đặc tả này dùng [H01: hồ sơ dữ liệu](../reports/data_profile.md), [danh sách 300 item MVP](../reports/m5_mvp_items.csv), [HI01: bài toán ML](../reports/ml_problem.md) và [OpenAPI contract của Hiếu](api_contract.json). Đây là **tài liệu thiết kế**; các giá trị trong mục `example` của OpenAPI là ví dụ, chưa chứng minh model/API đã chạy hoặc metric đã được đo.
+Đặc tả này dùng [H01: hồ sơ dữ liệu](../../reports/Hung/data_profile.md), [danh sách 300 item MVP](../../reports/Hung/m5_mvp_items.csv), [HI01: bài toán ML](../../reports/Hieu/ml_problem.md) và [OpenAPI contract của Hiếu](../api_contract.json). Đây là **tài liệu thiết kế**; các giá trị trong mục `example` của OpenAPI là ví dụ, chưa chứng minh model/API đã chạy hoặc metric đã được đo.
 
 Người dùng là người phân tích hoặc quản lý bán lẻ. Phạm vi MVP đã bàn giao: **1 store `CA_1`, 300 item** (mỗi category FOODS, HOBBIES, HOUSEHOLD có 100 item). Target `sales` là **số đơn vị sản phẩm bán trong một ngày**, không phải doanh thu. Lịch sử hiện có đến **22/05/2016** (`d_1941`); khi dự báo từ lịch sử đầy đủ, ngày đầu tiên là **23/05/2016**. Ngày bắt đầu cần lấy từ response thực tế, không gắn cứng trong UI.
 
@@ -53,7 +53,7 @@ flowchart TD
 
 ## Danh sách trường API bàn giao cho L02/L04
 
-**Nguồn chuẩn:** [`docs/api_contract.json`](api_contract.json), OpenAPI 3.0.3. Bảng sau tóm tắt contract; khi triển khai cần đối chiếu schema gốc.
+**Nguồn chuẩn:** [`docs/api_contract.json`](../api_contract.json), OpenAPI 3.0.3. Bảng sau tóm tắt contract; khi triển khai cần đối chiếu schema gốc.
 
 | API | Trường dùng ở UI | Quy tắc |
 |---|---|---|

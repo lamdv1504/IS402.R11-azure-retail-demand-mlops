@@ -24,17 +24,17 @@
       "size_bytes": 52627
     },
     "feature_schema": {
-      "path": "reports/hi03_feature_schema.json",
+      "path": "reports/Hieu/hi03_feature_schema.json",
       "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
       "size_bytes": 10079
     },
     "feature_log": {
-      "path": "reports/hi03_feature_log.json",
+      "path": "reports/Hieu/hi03_feature_log.json",
       "sha256": "a0294f56439f804eda9d7960771ec95845c5551db28beb359df76775bb5c72bc",
       "size_bytes": 2753
     },
     "split_log": {
-      "path": "reports/hi02_split_log.json",
+      "path": "reports/Hieu/hi02_split_log.json",
       "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
       "size_bytes": 5148
     },
@@ -165,7 +165,7 @@
       "size_bytes": 4973339
     },
     "validation_predictions": {
-      "path": "reports/hi04_validation_predictions.csv",
+      "path": "reports/Hieu/hi04_validation_predictions.csv",
       "sha256": "c19ae06678f5716eca7bf8aa2de976e77603c5dbee8cb7fc83813b3c8b66ccc4",
       "size_bytes": 572302
     },

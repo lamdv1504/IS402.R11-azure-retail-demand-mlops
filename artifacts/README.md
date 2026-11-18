@@ -12,10 +12,10 @@ Mô hình và kết quả huấn luyện — Hiếu.
 
 Nguồn tạo gói: `python src/models/train.py` trong môi trường có
 `requirements-ml.txt`. Log/fingerprint và dự báo validation nằm trong
-`reports/hi04_training_log.json` và `reports/hi04_validation_predictions.csv`.
+`reports/Hieu/hi04_training_log.json` và `reports/Hieu/hi04_validation_predictions.csv`.
 Đây là ứng viên cho HI05; chưa đánh giá final holdout hoặc đăng ký Model Registry.
 
 `hi05/` là gói đã chọn qua validation, gồm model tốt nhất, metric, schema/config,
 metadata và context lịch sử/calendar nhỏ để chạy inference local. Dùng
 `src/models/predict.py` để load và kiểm tra gói. Hướng dẫn bàn giao cho Lâm/Quân
-nằm ở [docs/hi05_inference_handoff.md](../docs/hi05_inference_handoff.md).
+nằm ở [docs/Hieu/hi05_inference_handoff.md](../docs/Hieu/hi05_inference_handoff.md).

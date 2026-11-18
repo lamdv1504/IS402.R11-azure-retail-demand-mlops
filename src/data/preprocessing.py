@@ -20,9 +20,9 @@ DAY_PATTERN = re.compile(r"d_(\d+)$")
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Tiền xử lý dữ liệu M5 cho H02")
     parser.add_argument("--raw-dir", type=Path, default=Path("data/raw"))
-    parser.add_argument("--item-list", type=Path, default=Path("reports/m5_mvp_items.csv"))
+    parser.add_argument("--item-list", type=Path, default=Path("reports/Hung/m5_mvp_items.csv"))
     parser.add_argument("--output", type=Path, default=Path("data/processed/m5_sales_processed.parquet"))
-    parser.add_argument("--log", type=Path, default=Path("reports/h02_processing_log.json"))
+    parser.add_argument("--log", type=Path, default=Path("reports/Hung/h02_processing_log.json"))
     return parser.parse_args()
 
 
