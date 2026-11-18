@@ -1,0 +1,17 @@
+{
+  "task": "L03",
+  "server_working_directory": "backend/",
+  "model_version": "hi05-xgboost-cb3a08fa5e82",
+  "data_version": "m5-ca1-300-v1",
+  "checks": {
+    "health_model_loaded": true,
+    "catalog_items": 300,
+    "model_info_status": 200,
+    "prediction_status": 200,
+    "forecast_days": 28,
+    "unknown_item_status": 404,
+    "invalid_horizon_status": 422
+  },
+  "api_tests_passed": 14,
+  "regression_tests_passed": 37
+}

@@ -1,0 +1,154 @@
+{
+  "store_id": "CA_1",
+  "item_id": "FOODS_1_017",
+  "dept_id": "FOODS_1",
+  "cat_id": "FOODS",
+  "state_id": "CA",
+  "model_version": "hi05-xgboost-cb3a08fa5e82",
+  "data_version": "m5-ca1-300-v1",
+  "forecast_start_date": "2016-05-23",
+  "horizon": 28,
+  "total_predicted_sales": 21.34,
+  "forecast": [
+    {
+      "date": "2016-05-23",
+      "day_of_week": "Monday",
+      "predicted_sales": 0.77
+    },
+    {
+      "date": "2016-05-24",
+      "day_of_week": "Tuesday",
+      "predicted_sales": 0.53
+    },
+    {
+      "date": "2016-05-25",
+      "day_of_week": "Wednesday",
+      "predicted_sales": 0.64
+    },
+    {
+      "date": "2016-05-26",
+      "day_of_week": "Thursday",
+      "predicted_sales": 0.65
+    },
+    {
+      "date": "2016-05-27",
+      "day_of_week": "Friday",
+      "predicted_sales": 0.78
+    },
+    {
+      "date": "2016-05-28",
+      "day_of_week": "Saturday",
+      "predicted_sales": 1.15
+    },
+    {
+      "date": "2016-05-29",
+      "day_of_week": "Sunday",
+      "predicted_sales": 0.75
+    },
+    {
+      "date": "2016-05-30",
+      "day_of_week": "Monday",
+      "predicted_sales": 0.4
+    },
+    {
+      "date": "2016-05-31",
+      "day_of_week": "Tuesday",
+      "predicted_sales": 0.68
+    },
+    {
+      "date": "2016-06-01",
+      "day_of_week": "Wednesday",
+      "predicted_sales": 0.38
+    },
+    {
+      "date": "2016-06-02",
+      "day_of_week": "Thursday",
+      "predicted_sales": 0.78
+    },
+    {
+      "date": "2016-06-03",
+      "day_of_week": "Friday",
+      "predicted_sales": 0.9
+    },
+    {
+      "date": "2016-06-04",
+      "day_of_week": "Saturday",
+      "predicted_sales": 1.2
+    },
+    {
+      "date": "2016-06-05",
+      "day_of_week": "Sunday",
+      "predicted_sales": 0.8
+    },
+    {
+      "date": "2016-06-06",
+      "day_of_week": "Monday",
+      "predicted_sales": 0.64
+    },
+    {
+      "date": "2016-06-07",
+      "day_of_week": "Tuesday",
+      "predicted_sales": 0.72
+    },
+    {
+      "date": "2016-06-08",
+      "day_of_week": "Wednesday",
+      "predicted_sales": 0.57
+    },
+    {
+      "date": "2016-06-09",
+      "day_of_week": "Thursday",
+      "predicted_sales": 0.83
+    },
+    {
+      "date": "2016-06-10",
+      "day_of_week": "Friday",
+      "predicted_sales": 0.7
+    },
+    {
+      "date": "2016-06-11",
+      "day_of_week": "Saturday",
+      "predicted_sales": 1.11
+    },
+    {
+      "date": "2016-06-12",
+      "day_of_week": "Sunday",
+      "predicted_sales": 0.48
+    },
+    {
+      "date": "2016-06-13",
+      "day_of_week": "Monday",
+      "predicted_sales": 0.81
+    },
+    {
+      "date": "2016-06-14",
+      "day_of_week": "Tuesday",
+      "predicted_sales": 0.68
+    },
+    {
+      "date": "2016-06-15",
+      "day_of_week": "Wednesday",
+      "predicted_sales": 0.7
+    },
+    {
+      "date": "2016-06-16",
+      "day_of_week": "Thursday",
+      "predicted_sales": 0.69
+    },
+    {
+      "date": "2016-06-17",
+      "day_of_week": "Friday",
+      "predicted_sales": 0.63
+    },
+    {
+      "date": "2016-06-18",
+      "day_of_week": "Saturday",
+      "predicted_sales": 1.08
+    },
+    {
+      "date": "2016-06-19",
+      "day_of_week": "Sunday",
+      "predicted_sales": 1.29
+    }
+  ]
+}
