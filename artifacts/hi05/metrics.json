@@ -1,0 +1,51 @@
+{
+  "task": "HI05",
+  "metric_scope_note": "CA_1 MVP 300 item-store series only. Subset RMSSE is the unweighted mean; Subset WRMSSE is revenue-weighted at the bottom level only, not the official 12-level/full-competition M5 score. Scales exclude leading zero demand; weights use the last 28 observed days before each forecast origin.",
+  "validation": {
+    "seasonal_naive": {
+      "subset_rmsse": 0.9730377512944203,
+      "subset_wrmsse": 1.062760097957652,
+      "mae": 1.2645238095238096,
+      "rmse": 2.7247542484205276,
+      "series_count": 300,
+      "forecast_rows": 8400,
+      "horizon": 28,
+      "origin_day": 1885,
+      "scale_history_start_day": 1,
+      "weight_start_day": 1858,
+      "weight_end_day": 1885
+    },
+    "xgboost": {
+      "subset_rmsse": 0.7209842238186299,
+      "subset_wrmsse": 0.7628474044181374,
+      "mae": 1.0301821239416797,
+      "rmse": 2.027790973483406,
+      "series_count": 300,
+      "forecast_rows": 8400,
+      "horizon": 28,
+      "origin_day": 1885,
+      "scale_history_start_day": 1,
+      "weight_start_day": 1858,
+      "weight_end_day": 1885
+    }
+  },
+  "selected_model": "xgboost",
+  "holdout": {
+    "xgboost": {
+      "subset_rmsse": 0.7455563105460005,
+      "subset_wrmsse": 0.7211936649604329,
+      "mae": 1.0346571275653937,
+      "rmse": 1.937335994747754,
+      "series_count": 300,
+      "forecast_rows": 8400,
+      "horizon": 28,
+      "origin_day": 1913,
+      "scale_history_start_day": 1,
+      "weight_start_day": 1886,
+      "weight_end_day": 1913
+    }
+  },
+  "holdout_evaluation_count": 1,
+  "scale_policy": "All observed history before each origin, trimmed at first nonzero demand.",
+  "undefined_scale_policy": "Fail explicitly; do not silently exclude series or add epsilon."
+}

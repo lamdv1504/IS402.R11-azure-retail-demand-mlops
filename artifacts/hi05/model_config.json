@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "horizon": 28,
+  "strategy": "direct_horizon_safe",
+  "feature_order": [
+    "lag_28",
+    "lag_56",
+    "wday",
+    "month",
+    "year",
+    "snap_state",
+    "item_id_code",
+    "dept_id_code",
+    "cat_id_code",
+    "store_id_code",
+    "state_id_code",
+    "weekday_code",
+    "event_name_1_code",
+    "event_type_1_code",
+    "event_name_2_code",
+    "event_type_2_code"
+  ],
+  "xgboost": {
+    "n_estimators": 300,
+    "max_depth": 6,
+    "learning_rate": 0.05,
+    "min_child_weight": 20,
+    "subsample": 0.8,
+    "colsample_bytree": 0.9,
+    "reg_lambda": 10,
+    "objective": "count:poisson",
+    "eval_metric": "rmse",
+    "tree_method": "hist",
+    "device": "cpu",
+    "n_jobs": 4,
+    "enable_categorical": true
+  },
+  "selected_algorithm": "xgboost"
+}

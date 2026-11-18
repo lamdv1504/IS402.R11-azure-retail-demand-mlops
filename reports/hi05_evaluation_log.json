@@ -1,0 +1,235 @@
+{
+  "task": "HI05",
+  "selection": {
+    "selected_model": "xgboost",
+    "metric": "validation_subset_rmsse",
+    "tie_break": "lexicographic model name",
+    "validation_metrics": {
+      "seasonal_naive": {
+        "subset_rmsse": 0.9730377512944203,
+        "subset_wrmsse": 1.062760097957652,
+        "mae": 1.2645238095238096,
+        "rmse": 2.7247542484205276,
+        "series_count": 300,
+        "forecast_rows": 8400,
+        "horizon": 28,
+        "origin_day": 1885,
+        "scale_history_start_day": 1,
+        "weight_start_day": 1858,
+        "weight_end_day": 1885
+      },
+      "xgboost": {
+        "subset_rmsse": 0.7209842238186299,
+        "subset_wrmsse": 0.7628474044181374,
+        "mae": 1.0301821239416797,
+        "rmse": 2.027790973483406,
+        "series_count": 300,
+        "forecast_rows": 8400,
+        "horizon": 28,
+        "origin_day": 1885,
+        "scale_history_start_day": 1,
+        "weight_start_day": 1858,
+        "weight_end_day": 1885
+      }
+    },
+    "training_end_day": 1885,
+    "validation_end_day": 1913,
+    "refit_policy": "Keep the selected HI04 estimator unchanged for holdout and serving.",
+    "holdout_used_for_selection": false
+  },
+  "metrics": {
+    "task": "HI05",
+    "metric_scope_note": "CA_1 MVP 300 item-store series only. Subset RMSSE is the unweighted mean; Subset WRMSSE is revenue-weighted at the bottom level only, not the official 12-level/full-competition M5 score. Scales exclude leading zero demand; weights use the last 28 observed days before each forecast origin.",
+    "validation": {
+      "seasonal_naive": {
+        "subset_rmsse": 0.9730377512944203,
+        "subset_wrmsse": 1.062760097957652,
+        "mae": 1.2645238095238096,
+        "rmse": 2.7247542484205276,
+        "series_count": 300,
+        "forecast_rows": 8400,
+        "horizon": 28,
+        "origin_day": 1885,
+        "scale_history_start_day": 1,
+        "weight_start_day": 1858,
+        "weight_end_day": 1885
+      },
+      "xgboost": {
+        "subset_rmsse": 0.7209842238186299,
+        "subset_wrmsse": 0.7628474044181374,
+        "mae": 1.0301821239416797,
+        "rmse": 2.027790973483406,
+        "series_count": 300,
+        "forecast_rows": 8400,
+        "horizon": 28,
+        "origin_day": 1885,
+        "scale_history_start_day": 1,
+        "weight_start_day": 1858,
+        "weight_end_day": 1885
+      }
+    },
+    "selected_model": "xgboost",
+    "holdout": {
+      "xgboost": {
+        "subset_rmsse": 0.7455563105460005,
+        "subset_wrmsse": 0.7211936649604329,
+        "mae": 1.0346571275653937,
+        "rmse": 1.937335994747754,
+        "series_count": 300,
+        "forecast_rows": 8400,
+        "horizon": 28,
+        "origin_day": 1913,
+        "scale_history_start_day": 1,
+        "weight_start_day": 1886,
+        "weight_end_day": 1913
+      }
+    },
+    "holdout_evaluation_count": 1,
+    "scale_policy": "All observed history before each origin, trimmed at first nonzero demand.",
+    "undefined_scale_policy": "Fail explicitly; do not silently exclude series or add epsilon."
+  },
+  "inputs": {
+    "hi04_log": {
+      "path": "reports/hi04_training_log.json",
+      "sha256": "53dd14e1d04b1a9498aa0ac7a6a5a91d5ecb82394c5cb1cf43700787cb2a3834",
+      "size_bytes": 5992
+    },
+    "hi02_log": {
+      "path": "reports/hi02_split_log.json",
+      "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
+      "size_bytes": 5148
+    },
+    "test": {
+      "path": "data/processed/splits/test.parquet",
+      "sha256": "1bd637826d5d8a0410648396eb0639e545eb56dcd188a0dd1b5719308d21ac45",
+      "size_bytes": 28734
+    },
+    "calendar": {
+      "path": "data/raw/calendar.csv",
+      "sha256": "d12b5914ef03e66649adf5dd9e996e6602251c22b7a6af8f1f7e3aa12f8860f5",
+      "size_bytes": 103469
+    }
+  },
+  "source_code": {
+    "evaluate.py": {
+      "path": "src/models/evaluate.py",
+      "sha256": "271105a73e67b51eeafab39c60cb7b384b3eba8313f74553e14154c75d92301f",
+      "size_bytes": 14459
+    },
+    "metrics.py": {
+      "path": "src/models/metrics.py",
+      "sha256": "1cd1f92d122e9791c00ef80070dc8592dbad680582e981b0fa2a68e46b1c97e4",
+      "size_bytes": 4392
+    },
+    "predict.py": {
+      "path": "src/models/predict.py",
+      "sha256": "ed1779374a358dfcd15ebba4f0dd98d0d3e5ca2033bd1099b1a08611f992a3ee",
+      "size_bytes": 6401
+    },
+    "forecasting.py": {
+      "path": "src/models/forecasting.py",
+      "sha256": "d81e5559c87aeacb71ef26b66765a56d1d7340c465f59ddbb353c835d44775eb",
+      "size_bytes": 7283
+    }
+  },
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "pyarrow": "26.0.1",
+    "xgboost": "3.2.0",
+    "scikit-learn": "1.9.1"
+  },
+  "checks": {
+    "selection_saved_before_holdout_read": true,
+    "holdout_evaluations": 1,
+    "holdout_not_used_for_tuning": true,
+    "model_reload_matches_validation": true,
+    "future_forecasts": 8400,
+    "sample_response_days": 28,
+    "future_sales_or_prices_required": false
+  },
+  "artifacts": {
+    "best_model.ubj": {
+      "path": "artifacts/hi05/best_model.ubj",
+      "sha256": "cb3a08fa5e82ad7158a3607483f65b794b216d78292c1267239379683b349296",
+      "size_bytes": 4973339
+    },
+    "feature_order.json": {
+      "path": "artifacts/hi05/feature_order.json",
+      "sha256": "8fc1966053e7f5b5384b7b87f1217ee8173697881cd4e9a8a035be828c4be282",
+      "size_bytes": 293
+    },
+    "feature_schema.json": {
+      "path": "artifacts/hi05/feature_schema.json",
+      "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
+      "size_bytes": 10079
+    },
+    "future_calendar.csv": {
+      "path": "artifacts/hi05/future_calendar.csv",
+      "sha256": "3cd16b0801cab202f1af691b600fe3ebf313950f3c78a2623026a043c5341dd4",
+      "size_bytes": 1681
+    },
+    "inference_history.parquet": {
+      "path": "artifacts/hi05/inference_history.parquet",
+      "sha256": "2a1be17f8ca89e483892c2b1d0242cd34af77228e62b4eec990d07b3fb71ade0",
+      "size_bytes": 35331
+    },
+    "metrics.json": {
+      "path": "artifacts/hi05/metrics.json",
+      "sha256": "9b040daa1b1d1465b18aa71257539947f05de7c1277603c479f5f3b185f59eb6",
+      "size_bytes": 1815
+    },
+    "model_config.json": {
+      "path": "artifacts/hi05/model_config.json",
+      "sha256": "641ffc5a693fa4d6b8444c347b8464cf5459171f02caddd75f54182364ab1c52",
+      "size_bytes": 824
+    },
+    "model_info.json": {
+      "path": "artifacts/hi05/model_info.json",
+      "sha256": "ea80d458e6f2b2c5b4982f454c197fce52e730e60c410bcf3b555e7e8203a83d",
+      "size_bytes": 1357
+    },
+    "model_metadata.json": {
+      "path": "artifacts/hi05/model_metadata.json",
+      "sha256": "6a26763385a95df16f0d27f92c84dcfb73ba53fcf7228e7419e9ed004a73fad6",
+      "size_bytes": 19410
+    },
+    "selection.json": {
+      "path": "artifacts/hi05/selection.json",
+      "sha256": "dcf0b373e2a7c5a4e1a37f5fc6d313a2d38c32ec6cdf7fb6e8ab7700f6a9f9af",
+      "size_bytes": 1126
+    }
+  },
+  "reports": {
+    "hi05_future_predictions.csv": {
+      "path": "reports/hi05_future_predictions.csv",
+      "sha256": "6d87e6b63638dbc4da7217cb8a9cff5d7b937beb61ab33636569b6ab92ac891b",
+      "size_bytes": 521370
+    },
+    "hi05_model_comparison.csv": {
+      "path": "reports/hi05_model_comparison.csv",
+      "sha256": "bbadfedc323840a0d1abb4ba668802dbd46cc218631b87c86fe58eeac1ec52f0",
+      "size_bytes": 378
+    },
+    "hi05_test_predictions.csv": {
+      "path": "reports/hi05_test_predictions.csv",
+      "sha256": "1b185db6e95ae8ae67a0d82a91ae03e048b635fa853525ef2d1be303cda0514d",
+      "size_bytes": 538390
+    },
+    "hi05_test_series_metrics.csv": {
+      "path": "reports/hi05_test_series_metrics.csv",
+      "sha256": "78675cd064f995341b9e757fc19e2a6409f99fc97772fd77cf3407c24bc92682",
+      "size_bytes": 34230
+    },
+    "hi05_validation_predictions.csv": {
+      "path": "reports/hi05_validation_predictions.csv",
+      "sha256": "3e4e3f89a618e9726426f81c76059ad3a0fed5c571e76163790e22c6010a4110",
+      "size_bytes": 1143699
+    },
+    "hi05_validation_series_metrics.csv": {
+      "path": "reports/hi05_validation_series_metrics.csv",
+      "sha256": "803e2acdea838c5c52ab0d8114bea32206c7d0e46390452dcf56e884b9aa4f03",
+      "size_bytes": 73732
+    }
+  }
+}
