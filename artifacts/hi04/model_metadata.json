@@ -1,0 +1,43 @@
+{
+  "task": "HI04",
+  "model_name": "xgboost",
+  "model_version": "hi04-xgb-cb3a08fa5e82",
+  "data_version": "m5-ca1-300-v1",
+  "status": "candidate_for_HI05",
+  "strategy": "direct_horizon_safe",
+  "horizon": 28,
+  "seed": 42,
+  "minimum_history_days": 56,
+  "categorical_handling": "Native XGBoost categories dùng vocabulary train HI03; mã -1 là missing.",
+  "output_policy": "Float units, clip tại 0, không làm tròn số nguyên.",
+  "pricing_policy": "Không dùng sell_price, price change hoặc is_active; không cần giá future đã biết.",
+  "scope": {
+    "stores": [
+      "CA_1"
+    ],
+    "series_count": 300
+  },
+  "training_window": {
+    "start_d": "d_1",
+    "end_d": "d_1885",
+    "start_date": "2011-01-29",
+    "end_date": "2016-03-27",
+    "day_count": 1885,
+    "row_count": 565500,
+    "series_count": 300,
+    "min_days_per_series": 1885,
+    "max_days_per_series": 1885
+  },
+  "validation_window": {
+    "start_d": "d_1886",
+    "end_d": "d_1913",
+    "start_date": "2016-03-28",
+    "end_date": "2016-04-24",
+    "day_count": 28,
+    "row_count": 8400,
+    "series_count": 300,
+    "min_days_per_series": 28,
+    "max_days_per_series": 28
+  },
+  "holdout_evaluated": false
+}

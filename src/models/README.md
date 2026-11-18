@@ -23,3 +23,27 @@ còn `context.labels` dành riêng cho chấm điểm. Không tính lag/rolling 
 bộ dữ liệu có nhãn trước khi tách backtest.
 
 Xem [báo cáo và quy tắc bàn giao HI02](../../reports/hi02_split.md).
+
+## HI04 — Huấn luyện và validation
+
+Tạo môi trường ML riêng từ thư mục gốc repo (lần đầu), rồi chạy:
+
+```powershell
+python -m venv .venv-ml
+.\.venv-ml\Scripts\python.exe -m pip install -r requirements-ml.txt
+.\.venv-ml\Scripts\python.exe src/models/train.py
+.\.venv-ml\Scripts\python.exe -m unittest discover -s tests -p "test_*.py" -v
+```
+
+Cần các split và feature Parquet HI02/HI03 cùng log/schema tương ứng. Khi thiếu
+file hoặc fingerprint không khớp, script dừng. XGBoost và baseline seasonal naive
+được dự báo trên cùng 28 ngày validation CA_1/300 chuỗi. Cấu hình seed 42 và 16
+feature nằm trong `train_config.json`; không đọc final holdout trong HI04.
+
+Model native XGBoost và metadata nằm ở `artifacts/hi04/`, dự báo ở
+`reports/hi04_validation_predictions.csv`, log ở `reports/hi04_training_log.json`.
+`forecasting.py` cung cấp cùng đường suy luận direct cho validation và HI05;
+lag_28/lag_56 không cần sales thực tế trong cửa sổ tương lai. HI05 tiếp tục
+đánh giá RMSSE, chọn model và xử lý final holdout.
+
+Xem [báo cáo huấn luyện HI04](../../reports/hi04_training.md).
