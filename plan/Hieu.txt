@@ -23,7 +23,7 @@ Các bước thực hiện:
   3. Định nghĩa output: dự báo sales từng ngày, ví dụ 7 ngày.
   4. Chốt MAE, RMSE, sMAPE dùng để đánh giá.
   5. Viết ví dụ input/output để Lâm thiết kế API, nhấn mạnh cách lấy lịch sử bán.
-Công cụ / file: Data Dictionary Hùng; reports/ml_problem.md; JSON input/output mẫu.
+Công cụ / file: Data Dictionary Hùng; reports/Hieu/ml_problem.md; JSON input/output mẫu.
 Sản phẩm bàn giao: Tài liệu mô tả target, input, output, horizon và metric; ví dụ forecast 7 ngày.
 Tiêu chí nghiệm thu: Hùng, Hiếu và Lâm hiểu cùng một ý nghĩa trường dữ liệu và kết quả cần trả.
 Phụ thuộc / phối hợp: Phụ thuộc H01; bàn giao đặc tả mô hình cho Lâm.

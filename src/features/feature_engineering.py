@@ -165,12 +165,12 @@ def build_features(history: pd.DataFrame, future: pd.DataFrame | None = None,
 def main() -> None:
     parser = argparse.ArgumentParser(description="HI03: tạo đặc trưng M5 không dùng nhãn future")
     parser.add_argument("--splits-dir", type=Path, default=Path("data/processed/splits"))
-    parser.add_argument("--split-log", type=Path, default=Path("reports/hi02_split_log.json"))
+    parser.add_argument("--split-log", type=Path, default=Path("reports/Hieu/hi02_split_log.json"))
     parser.add_argument("--calendar", type=Path, default=Path("data/raw/calendar.csv"))
     parser.add_argument("--prices", type=Path, default=Path("data/raw/sell_prices.csv"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/processed/features"))
-    parser.add_argument("--schema", type=Path, default=Path("reports/hi03_feature_schema.json"))
-    parser.add_argument("--log", type=Path, default=Path("reports/hi03_feature_log.json"))
+    parser.add_argument("--schema", type=Path, default=Path("reports/Hieu/hi03_feature_schema.json"))
+    parser.add_argument("--log", type=Path, default=Path("reports/Hieu/hi03_feature_log.json"))
     args = parser.parse_args()
     paths = {name: args.splits_dir / f"{name}.parquet" for name in ("train", "validation", "test")}
     required = [paths["train"], paths["validation"], args.split_log, args.calendar, args.prices]

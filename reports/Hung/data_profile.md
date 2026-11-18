@@ -38,7 +38,7 @@ Hai file sales có lịch sử trùng nhau từ `d_1` đến `d_1913`, vì vậy
 
 ## Phạm vi MVP đề xuất
 
-Chọn cửa hàng `CA_1` và 300 sản phẩm: mỗi nhóm `FOODS`, `HOBBIES`, `HOUSEHOLD` lấy 100 sản phẩm bằng cách lấy mẫu với seed 42. Danh sách ID cụ thể nằm trong `reports/m5_mvp_items.csv` và có thể tạo lại bằng lệnh `python src/data/profile_m5.py`. Nhóm cần xác nhận danh sách này trước H02.
+Chọn cửa hàng `CA_1` và 300 sản phẩm: mỗi nhóm `FOODS`, `HOBBIES`, `HOUSEHOLD` lấy 100 sản phẩm bằng cách lấy mẫu với seed 42. Danh sách ID cụ thể nằm trong `reports/Hung/m5_mvp_items.csv` và có thể tạo lại bằng lệnh `python src/data/profile_m5.py`. Nhóm cần xác nhận danh sách này trước H02.
 
 Trong 300 chuỗi đã chọn, file evaluation có 1.941 ngày và 582.300 ô doanh số. Không có doanh số thiếu; 378.662 ô (65,03%) có doanh số bằng 0. Tổng doanh số quan sát được là 748.327 sản phẩm. Các số liệu này chỉ áp dụng cho mẫu MVP, không đại diện cho toàn bộ dữ liệu M5.
 

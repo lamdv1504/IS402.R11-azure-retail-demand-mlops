@@ -10,7 +10,7 @@ import pandas as pd
 
 
 RAW = Path("data/raw")
-OUTPUT = Path("reports/m5_mvp_items.csv")
+OUTPUT = Path("reports/Hung/m5_mvp_items.csv")
 STORE = "CA_1"
 ITEMS_PER_CATEGORY = 100
 SEED = 42

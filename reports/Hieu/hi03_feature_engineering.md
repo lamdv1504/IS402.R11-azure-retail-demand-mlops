@@ -6,7 +6,7 @@ HI03 dùng các file đã có của Hùng và HI02: Parquet H02, split HI02, `ca
 và `sell_prices.csv`. Đã đối chiếu 1.941 ngày lịch và 69.666 dòng giá gốc thuộc
 phạm vi CA_1/300 sản phẩm; giá H02 khớp theo `store_id,item_id,wm_yr_wk`.
 Log HI03 đối chiếu SHA-256 các split Parquet với bàn giao HI02 và ghi phiên bản
-dữ liệu từ `reports/hi02_split_log.json`.
+dữ liệu từ `reports/Hieu/hi02_split_log.json`.
 
 | Đầu ra | Số dòng | Số chuỗi | Có nhãn sales? |
 | --- | ---: | ---: | --- |
@@ -16,8 +16,8 @@ dữ liệu từ `reports/hi02_split_log.json`.
 
 Các Parquet được tạo trong `data/processed/features/` và Git bỏ qua theo quy ước
 dữ liệu của nhóm. Danh sách feature, từ vựng phân loại, cách xử lý null và
-giả định suy luận nằm ở `reports/hi03_feature_schema.json`; số dòng, số null,
-fingerprint đầu vào/đầu ra nằm ở `reports/hi03_feature_log.json`.
+giả định suy luận nằm ở `reports/Hieu/hi03_feature_schema.json`; số dòng, số null,
+fingerprint đầu vào/đầu ra nằm ở `reports/Hieu/hi03_feature_log.json`.
 
 ## Nhóm đặc trưng
 

@@ -201,12 +201,12 @@ def evaluate(args: argparse.Namespace) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--candidate-dir", type=Path, default=Path("artifacts/hi04"))
-    parser.add_argument("--training-log", type=Path, default=Path("reports/hi04_training_log.json"))
-    parser.add_argument("--split-log", type=Path, default=Path("reports/hi02_split_log.json"))
+    parser.add_argument("--training-log", type=Path, default=Path("reports/Hieu/hi04_training_log.json"))
+    parser.add_argument("--split-log", type=Path, default=Path("reports/Hieu/hi02_split_log.json"))
     parser.add_argument("--splits-dir", type=Path, default=Path("data/processed/splits"))
     parser.add_argument("--calendar", type=Path, default=Path("data/raw/calendar.csv"))
     parser.add_argument("--output-dir", type=Path, default=Path("artifacts/hi05"))
-    parser.add_argument("--reports-dir", type=Path, default=Path("reports"))
+    parser.add_argument("--reports-dir", type=Path, default=Path("reports/Hieu"))
     args = parser.parse_args()
     try:
         result = evaluate(args)

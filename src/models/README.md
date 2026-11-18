@@ -11,10 +11,10 @@ python -m unittest discover -s tests -p "test_split_data.py" -v
 ```
 
 Chạy từ thư mục gốc repo. Cần Parquet H02, `data/raw/calendar.csv` và
-`reports/m5_mvp_items.csv`. Script dừng khi thiếu đầu vào, không tạo dữ liệu giả.
+`reports/Hung/m5_mvp_items.csv`. Script dừng khi thiếu đầu vào, không tạo dữ liệu giả.
 Cấu hình nằm ở `src/models/split_config.json`; kết quả Parquet nằm trong
 `data/processed/splits/` (được Git bỏ qua). Log và mapping được lưu tại
-`reports/hi02_split_log.json` và `reports/hi02_day_mapping.csv`.
+`reports/Hieu/hi02_split_log.json` và `reports/Hieu/hi02_day_mapping.csv`.
 
 HI03/HI04 có thể nhập `prepare_data`, `split_data` và `make_backtest_context`
 từ `src.models.split_data`. Lịch sử validation chỉ đến `d_1885`; lịch sử test
@@ -22,7 +22,7 @@ từ `src.models.split_data`. Lịch sử validation chỉ đến `d_1885`; lị
 còn `context.labels` dành riêng cho chấm điểm. Không tính lag/rolling trên toàn
 bộ dữ liệu có nhãn trước khi tách backtest.
 
-Xem [báo cáo và quy tắc bàn giao HI02](../../reports/hi02_split.md).
+Xem [báo cáo và quy tắc bàn giao HI02](../../reports/Hieu/hi02_split.md).
 
 ## HI04 — Huấn luyện và validation
 
@@ -41,12 +41,12 @@ file hoặc fingerprint không khớp, script dừng. XGBoost và baseline seaso
 feature nằm trong `train_config.json`; không đọc final holdout trong HI04.
 
 Model native XGBoost và metadata nằm ở `artifacts/hi04/`, dự báo ở
-`reports/hi04_validation_predictions.csv`, log ở `reports/hi04_training_log.json`.
+`reports/Hieu/hi04_validation_predictions.csv`, log ở `reports/Hieu/hi04_training_log.json`.
 `forecasting.py` cung cấp cùng đường suy luận direct cho validation và HI05;
 lag_28/lag_56 không cần sales thực tế trong cửa sổ tương lai. HI05 tiếp tục
 đánh giá RMSSE, chọn model và xử lý final holdout.
 
-Xem [báo cáo huấn luyện HI04](../../reports/hi04_training.md).
+Xem [báo cáo huấn luyện HI04](../../reports/Hieu/hi04_training.md).
 
 ## HI05 — Chọn model, đánh giá và bàn giao predictor
 
@@ -57,7 +57,7 @@ Xem [báo cáo huấn luyện HI04](../../reports/hi04_training.md).
 
 `evaluate.py` chọn bằng RMSSE validation, lưu lựa chọn rồi mới đọc/chấm holdout
 một lần. Gói model và serving context nằm tại `artifacts/hi05/`; metric và các
-bảng so sánh/dự báo nằm ở `reports/hi05_*`. Nếu gói đã tồn tại, dùng predictor;
+bảng so sánh/dự báo nằm ở `reports/Hieu/hi05_*`. Nếu gói đã tồn tại, dùng predictor;
 lệnh evaluate sẽ dừng để giữ kết quả holdout đã ghi.
 
-Xem [hướng dẫn tích hợp HI05 → L03](../../docs/hi05_inference_handoff.md).
+Xem [hướng dẫn tích hợp HI05 → L03](../../docs/Hieu/hi05_inference_handoff.md).

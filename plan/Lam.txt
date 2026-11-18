@@ -25,7 +25,7 @@ Các bước thực hiện:
   5. Với Model Performance: MAE/RMSE/sMAPE, Actual vs Predicted.
   6. Với Model Information: version, ngày train, thuật toán và trạng thái.
   7. Vẽ user flow/wireframe đơn giản trước khi code.
-Công cụ / file: Figma/draw.io hoặc giấy; docs/use_cases.md; wireframe.
+Công cụ / file: Figma/draw.io hoặc giấy; docs/Lam/use_cases.md; wireframe.
 Sản phẩm bàn giao: Danh sách chức năng, use case/user flow, wireframe 4 trang.
 Tiêu chí nghiệm thu: Mỗi trang có mục đích và dữ liệu cần hiển thị; không có màn hình không liên quan đề tài.
 Phụ thuộc / phối hợp: Trao đổi HI01 để chốt nội dung form dự báo.

@@ -367,7 +367,7 @@
           },
           "item_id": {
             "type": "string",
-            "description": "Mã sản phẩm hợp lệ trong danh sách 300 sản phẩm MVP (reports/m5_mvp_items.csv)",
+            "description": "Mã sản phẩm hợp lệ trong danh sách 300 sản phẩm MVP (reports/Hung/m5_mvp_items.csv)",
             "example": "FOODS_1_017"
           },
           "horizon": {

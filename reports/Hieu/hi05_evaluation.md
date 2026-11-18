@@ -48,12 +48,12 @@ Cách tính đối chiếu [M5 Competitors Guide](https://storage.googleapis.com
 - `future_calendar.csv`: lịch 28 ngày production; không có nhãn sales hay giá tương lai.
 - `src/models/predict.py`: predictor dùng cùng `forecast_direct` và feature builder
   đã dùng để đánh giá; output float không âm, API làm tròn 2 chữ số thập phân.
-- `reports/hi05_model_comparison.csv`, các file `hi05_*_series_metrics.csv` và
+- `reports/Hieu/hi05_model_comparison.csv`, các file `hi05_*_series_metrics.csv` và
   `hi05_*_predictions.csv`: so sánh, metric từng chuỗi, dự báo validation/test/future.
-- `reports/hi05_sample_request.json`, `reports/hi05_sample_response.json`: JSON thực.
-- `reports/hi05_evaluation_log.json`: fingerprint đầu vào/artifact/code và phiên bản thư viện.
+- `reports/Hieu/hi05_sample_request.json`, `reports/Hieu/hi05_sample_response.json`: JSON thực.
+- `reports/Hieu/hi05_evaluation_log.json`: fingerprint đầu vào/artifact/code và phiên bản thư viện.
 
-Chi tiết chạy và tích hợp: [docs/hi05_inference_handoff.md](../docs/hi05_inference_handoff.md).
+Chi tiết chạy và tích hợp: [docs/Hieu/hi05_inference_handoff.md](../../docs/Hieu/hi05_inference_handoff.md).
 API `/predict` dùng model thật là phần tiếp theo L03 của Lâm; model local chưa được
 đăng ký Azure ML Model Registry (HI06).
 

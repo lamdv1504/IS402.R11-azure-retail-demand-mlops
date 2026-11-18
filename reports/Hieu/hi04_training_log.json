@@ -1,0 +1,229 @@
+{
+  "task": "HI04",
+  "data_version": "m5-ca1-300-v1",
+  "strategy": "direct_horizon_safe",
+  "inputs": {
+    "train": {
+      "path": "data/processed/splits/train.parquet",
+      "sha256": "26e1910d606ab23d1a1a63787ae12ea887549f18f8d74201a7162ffe24346877",
+      "size_bytes": 3032539
+    },
+    "validation": {
+      "path": "data/processed/splits/validation.parquet",
+      "sha256": "09c36c62bfa2b2fb83aa8f44f805f78303761dea8db568784002c2f5ebde9ad0",
+      "size_bytes": 28165
+    },
+    "train_features": {
+      "path": "data/processed/features/train_features.parquet",
+      "sha256": "1a1cfb340a4a199769d12ec7ac526b7a882bdf3f46c4c70aeced4440ca6fbe9f",
+      "size_bytes": 5135626
+    },
+    "validation_future_features": {
+      "path": "data/processed/features/validation_future_features.parquet",
+      "sha256": "8e8f4dc671594d6d18d6b824931e6427496c88a6be6d2150c03c3b4e9ae7f5c6",
+      "size_bytes": 52627
+    },
+    "feature_schema": {
+      "path": "reports/Hieu/hi03_feature_schema.json",
+      "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
+      "size_bytes": 10079
+    },
+    "feature_log": {
+      "path": "reports/Hieu/hi03_feature_log.json",
+      "sha256": "4301ae1b32fa9ce1452f55ecf9e367d9195c5f99a93d84a2208ec853b444fb0c",
+      "size_bytes": 3516
+    },
+    "split_log": {
+      "path": "reports/Hieu/hi02_split_log.json",
+      "sha256": "c9dd248021db093a9062faa35a1b22e283332fdc449aa8d369423e741436b2b2",
+      "size_bytes": 5158
+    },
+    "training_config": {
+      "path": "src/models/train_config.json",
+      "sha256": "0dc9b9d04e4efa8e610ad39e9d4398d96a007d82492116f5b502b8467b0902f5",
+      "size_bytes": 698
+    },
+    "training_code": {
+      "path": "src/models/train.py",
+      "sha256": "0b139c827ae8abbfcd189ba7b662cfe3e1ecded2c897c325cb038d96cf198cbc",
+      "size_bytes": 12898
+    },
+    "forecasting_code": {
+      "path": "src/models/forecasting.py",
+      "sha256": "d81e5559c87aeacb71ef26b66765a56d1d7340c465f59ddbb353c835d44775eb",
+      "size_bytes": 7283
+    },
+    "feature_builder_code": {
+      "path": "src/features/feature_engineering.py",
+      "sha256": "28ddab15d28640dcb19ec486fb39292e19164695037afb8acfa8e7a1a953c1f8",
+      "size_bytes": 14232
+    }
+  },
+  "config": {
+    "seed": 42,
+    "horizon": 28,
+    "strategy": "direct_horizon_safe",
+    "feature_order": [
+      "lag_28",
+      "lag_56",
+      "wday",
+      "month",
+      "year",
+      "snap_state",
+      "item_id_code",
+      "dept_id_code",
+      "cat_id_code",
+      "store_id_code",
+      "state_id_code",
+      "weekday_code",
+      "event_name_1_code",
+      "event_type_1_code",
+      "event_name_2_code",
+      "event_type_2_code"
+    ],
+    "xgboost": {
+      "n_estimators": 300,
+      "max_depth": 6,
+      "learning_rate": 0.05,
+      "min_child_weight": 20,
+      "subsample": 0.8,
+      "colsample_bytree": 0.9,
+      "reg_lambda": 10,
+      "objective": "count:poisson",
+      "eval_metric": "rmse",
+      "tree_method": "hist",
+      "device": "cpu",
+      "n_jobs": 4,
+      "enable_categorical": true
+    }
+  },
+  "python_version": "3.13.3",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "pyarrow": "26.0.1",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.2.0"
+  },
+  "scope": {
+    "stores": [
+      "CA_1"
+    ],
+    "series_count": 300
+  },
+  "windows": {
+    "train": {
+      "start_d": "d_1",
+      "end_d": "d_1885",
+      "start_date": "2011-01-29",
+      "end_date": "2016-03-27",
+      "day_count": 1885,
+      "row_count": 565500,
+      "series_count": 300,
+      "min_days_per_series": 1885,
+      "max_days_per_series": 1885
+    },
+    "validation": {
+      "start_d": "d_1886",
+      "end_d": "d_1913",
+      "start_date": "2016-03-28",
+      "end_date": "2016-04-24",
+      "day_count": 28,
+      "row_count": 8400,
+      "series_count": 300,
+      "min_days_per_series": 28,
+      "max_days_per_series": 28
+    }
+  },
+  "rows_used_for_fit": 548700,
+  "warmup_rows_excluded": 16800,
+  "training_seconds": 15.464,
+  "validation_metrics": {
+    "seasonal_naive": {
+      "mae": 1.2645238095238096,
+      "rmse": 2.7247542484205276
+    },
+    "xgboost": {
+      "mae": 1.0301821239416797,
+      "rmse": 2.027790973483406
+    }
+  },
+  "metric_scope": "MAE/RMSE chỉ trên CA_1 MVP 300 chuỗi, 28 ngày validation; chưa tính RMSSE/WRMSSE HI05.",
+  "checks": {
+    "future_labels_excluded": true,
+    "complete_28_day_forecasts": true,
+    "finite_nonnegative_forecasts": true,
+    "model_reload_predictions_equal": true,
+    "raw_inference_matches_feature_predictions": true,
+    "holdout_read_or_evaluated": false
+  },
+  "artifacts": {
+    "model": {
+      "path": "artifacts/hi04/xgboost.ubj",
+      "sha256": "cb3a08fa5e82ad7158a3607483f65b794b216d78292c1267239379683b349296",
+      "size_bytes": 4973339
+    },
+    "validation_predictions": {
+      "path": "reports/Hieu/hi04_validation_predictions.csv",
+      "sha256": "c19ae06678f5716eca7bf8aa2de976e77603c5dbee8cb7fc83813b3c8b66ccc4",
+      "size_bytes": 572302
+    },
+    "feature_order": {
+      "path": "artifacts/hi04/feature_order.json",
+      "sha256": "8fc1966053e7f5b5384b7b87f1217ee8173697881cd4e9a8a035be828c4be282",
+      "size_bytes": 293
+    },
+    "feature_schema": {
+      "path": "artifacts/hi04/feature_schema.json",
+      "sha256": "bc6a2f8c3da217d0a3c4440480ab5d4ba9166f3e63f8f66e4e8afc4bd0159a4c",
+      "size_bytes": 10079
+    },
+    "training_config": {
+      "path": "artifacts/hi04/training_config.json",
+      "sha256": "68b66334e1e9ddb6aeec2ef95e9ab56d254ce20852919db5d463694a6e3a7097",
+      "size_bytes": 788
+    },
+    "metadata": {
+      "path": "artifacts/hi04/model_metadata.json",
+      "sha256": "291d30b5a2c746718f838837d5d7818cc8e4141e2aa77aa9a49ebf3fa52f5fa0",
+      "size_bytes": 1255
+    }
+  },
+  "path_relocation": {
+    "baseline_commit": "e1a5741cc09d73b8864bfdf66810d91185e52603",
+    "note": "Verification references refreshed after documentation paths, CLI defaults and line endings changed. Original training/evaluation fingerprints are preserved below; model weights, features and metric values were not changed.",
+    "models_retrained": false,
+    "holdout_reevaluated": false,
+    "changed_references": [
+      {
+        "record": "inputs.feature_log",
+        "original_path": "reports/hi03_feature_log.json",
+        "original_sha256": "a0294f56439f804eda9d7960771ec95845c5551db28beb359df76775bb5c72bc",
+        "original_size_bytes": 2753,
+        "current_path": "reports/Hieu/hi03_feature_log.json"
+      },
+      {
+        "record": "inputs.split_log",
+        "original_path": "reports/hi02_split_log.json",
+        "original_sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
+        "original_size_bytes": 5148,
+        "current_path": "reports/Hieu/hi02_split_log.json"
+      },
+      {
+        "record": "inputs.training_code",
+        "original_path": "src/models/train.py",
+        "original_sha256": "6cbddde831a7b67937efc99d60d9398ae077dc03b2db48f2601d9425051b13a3",
+        "original_size_bytes": 12873,
+        "current_path": "src/models/train.py"
+      },
+      {
+        "record": "inputs.feature_builder_code",
+        "original_path": "src/features/feature_engineering.py",
+        "original_sha256": "9cf4da526758c855bbb3abd16afadcf633ac752eb90a3facde36f1e9505d9173",
+        "original_size_bytes": 14217,
+        "current_path": "src/features/feature_engineering.py"
+      }
+    ]
+  }
+}

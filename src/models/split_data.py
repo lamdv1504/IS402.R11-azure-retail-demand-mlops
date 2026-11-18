@@ -175,11 +175,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="HI02: chia M5 theo cửa sổ thời gian, không random split")
     parser.add_argument("--input", type=Path, default=Path("data/processed/m5_sales_processed.parquet"))
     parser.add_argument("--calendar", type=Path, default=Path("data/raw/calendar.csv"))
-    parser.add_argument("--item-list", type=Path, default=Path("reports/m5_mvp_items.csv"))
+    parser.add_argument("--item-list", type=Path, default=Path("reports/Hung/m5_mvp_items.csv"))
     parser.add_argument("--config", type=Path, default=Path(__file__).with_name("split_config.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/processed/splits"))
-    parser.add_argument("--log", type=Path, default=Path("reports/hi02_split_log.json"))
-    parser.add_argument("--day-mapping", type=Path, default=Path("reports/hi02_day_mapping.csv"))
+    parser.add_argument("--log", type=Path, default=Path("reports/Hieu/hi02_split_log.json"))
+    parser.add_argument("--day-mapping", type=Path, default=Path("reports/Hieu/hi02_day_mapping.csv"))
     args = parser.parse_args()
     inputs = {"parquet": args.input, "calendar": args.calendar,
               "item_list": args.item_list, "config": args.config}

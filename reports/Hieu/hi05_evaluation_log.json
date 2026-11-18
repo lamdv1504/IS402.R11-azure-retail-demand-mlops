@@ -90,14 +90,14 @@
   },
   "inputs": {
     "hi04_log": {
-      "path": "reports/hi04_training_log.json",
-      "sha256": "53dd14e1d04b1a9498aa0ac7a6a5a91d5ecb82394c5cb1cf43700787cb2a3834",
-      "size_bytes": 5992
+      "path": "reports/Hieu/hi04_training_log.json",
+      "sha256": "6bb3b2a7e75dcb0b3bf4fdc4925b46df5d793cd38b5fd70cbff67274f04008b0",
+      "size_bytes": 7700
     },
     "hi02_log": {
-      "path": "reports/hi02_split_log.json",
-      "sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
-      "size_bytes": 5148
+      "path": "reports/Hieu/hi02_split_log.json",
+      "sha256": "c9dd248021db093a9062faa35a1b22e283332fdc449aa8d369423e741436b2b2",
+      "size_bytes": 5158
     },
     "test": {
       "path": "data/processed/splits/test.parquet",
@@ -113,8 +113,8 @@
   "source_code": {
     "evaluate.py": {
       "path": "src/models/evaluate.py",
-      "sha256": "271105a73e67b51eeafab39c60cb7b384b3eba8313f74553e14154c75d92301f",
-      "size_bytes": 14459
+      "sha256": "9dc778f7b57360090ea6761a55285de1e8822c13ab52f7671d946fc7d02f4e7f",
+      "size_bytes": 14474
     },
     "metrics.py": {
       "path": "src/models/metrics.py",
@@ -202,34 +202,63 @@
   },
   "reports": {
     "hi05_future_predictions.csv": {
-      "path": "reports/hi05_future_predictions.csv",
+      "path": "reports/Hieu/hi05_future_predictions.csv",
       "sha256": "6d87e6b63638dbc4da7217cb8a9cff5d7b937beb61ab33636569b6ab92ac891b",
       "size_bytes": 521370
     },
     "hi05_model_comparison.csv": {
-      "path": "reports/hi05_model_comparison.csv",
+      "path": "reports/Hieu/hi05_model_comparison.csv",
       "sha256": "bbadfedc323840a0d1abb4ba668802dbd46cc218631b87c86fe58eeac1ec52f0",
       "size_bytes": 378
     },
     "hi05_test_predictions.csv": {
-      "path": "reports/hi05_test_predictions.csv",
+      "path": "reports/Hieu/hi05_test_predictions.csv",
       "sha256": "1b185db6e95ae8ae67a0d82a91ae03e048b635fa853525ef2d1be303cda0514d",
       "size_bytes": 538390
     },
     "hi05_test_series_metrics.csv": {
-      "path": "reports/hi05_test_series_metrics.csv",
+      "path": "reports/Hieu/hi05_test_series_metrics.csv",
       "sha256": "78675cd064f995341b9e757fc19e2a6409f99fc97772fd77cf3407c24bc92682",
       "size_bytes": 34230
     },
     "hi05_validation_predictions.csv": {
-      "path": "reports/hi05_validation_predictions.csv",
+      "path": "reports/Hieu/hi05_validation_predictions.csv",
       "sha256": "3e4e3f89a618e9726426f81c76059ad3a0fed5c571e76163790e22c6010a4110",
       "size_bytes": 1143699
     },
     "hi05_validation_series_metrics.csv": {
-      "path": "reports/hi05_validation_series_metrics.csv",
+      "path": "reports/Hieu/hi05_validation_series_metrics.csv",
       "sha256": "803e2acdea838c5c52ab0d8114bea32206c7d0e46390452dcf56e884b9aa4f03",
       "size_bytes": 73732
     }
+  },
+  "path_relocation": {
+    "baseline_commit": "e1a5741cc09d73b8864bfdf66810d91185e52603",
+    "note": "Verification references refreshed after documentation paths, CLI defaults and line endings changed. Original training/evaluation fingerprints are preserved below; model weights, features and metric values were not changed.",
+    "models_retrained": false,
+    "holdout_reevaluated": false,
+    "changed_references": [
+      {
+        "record": "inputs.hi04_log",
+        "original_path": "reports/hi04_training_log.json",
+        "original_sha256": "53dd14e1d04b1a9498aa0ac7a6a5a91d5ecb82394c5cb1cf43700787cb2a3834",
+        "original_size_bytes": 5992,
+        "current_path": "reports/Hieu/hi04_training_log.json"
+      },
+      {
+        "record": "inputs.hi02_log",
+        "original_path": "reports/hi02_split_log.json",
+        "original_sha256": "fc9e600dc9fd59eefb1296bba095a6267342181f69ab112dc52c525d0be62e32",
+        "original_size_bytes": 5148,
+        "current_path": "reports/Hieu/hi02_split_log.json"
+      },
+      {
+        "record": "source_code.evaluate.py",
+        "original_path": "src/models/evaluate.py",
+        "original_sha256": "271105a73e67b51eeafab39c60cb7b384b3eba8313f74553e14154c75d92301f",
+        "original_size_bytes": 14459,
+        "current_path": "src/models/evaluate.py"
+      }
+    ]
   }
 }
