@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0d221a;
+  --color-forest: #0d3b2e;
+  --color-muted: #355445;
+  --color-mint: #28c76f;
+  --color-ground: #f3faf5;
+  --color-line: #dfe9e2;
+  --font-sans: "Manrope", Arial, sans-serif;
+}
