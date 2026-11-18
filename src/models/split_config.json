@@ -1,0 +1,8 @@
+{
+  "data_version": "m5-ca1-300-v1",
+  "train_end_day": 1885,
+  "validation_end_day": 1913,
+  "test_end_day": 1941,
+  "horizon": 28,
+  "min_history_days": 28
+}
