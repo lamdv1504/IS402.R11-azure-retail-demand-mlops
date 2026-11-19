@@ -8,7 +8,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  python.version: '3.9'
+  python.version: '3.11'
 
 steps:
 - task: UsePythonVersion@0
