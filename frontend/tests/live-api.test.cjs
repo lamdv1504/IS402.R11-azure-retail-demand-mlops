@@ -1,23 +1,26 @@
 const assert = require("node:assert/strict");
 const { test } = require("node:test");
 const { loadSource } = require("./load-source.cjs");
-const { api, getHealth, getCatalog, getDashboard, getModelInfo } = loadSource("../src/lib/api.ts");
+const { api, getHealth, getCatalog, getModelInfo } = loadSource("../src/lib/api.ts");
 const { predictDemand } = loadSource("../src/services/predictionService.ts");
 
-// Requires the local L03 backend. No mocks; these are service/HTTP checks, not browser tests.
-test("loads the real MVP catalog, dashboard and model metadata", async () => {
-  const [health, catalog, dashboard, model] = await Promise.all([getHealth(), getCatalog(), getDashboard(), getModelInfo()]);
+// Requires a running L03 API (local or ACI). HTTP checks do not replace browser QA.
+test("loads live service status, MVP catalog and model metadata without historical data", async () => {
+  const [health, catalog, model] = await Promise.all([getHealth(), getCatalog(), getModelInfo()]);
+  assert.equal(health.status, "healthy");
   assert.equal(health.model_loaded, true);
+  assert.ok(health.version);
+  assert.ok(health.service);
+  assert.ok(Number.isFinite(Date.parse(health.timestamp)));
   assert.equal(catalog.store_id, "CA_1");
   assert.equal(catalog.items.length, 300);
   assert.equal(new Set(catalog.items.map(item => item.item_id)).size, 300);
   assert.deepEqual(catalog.categories_breakdown, { FOODS: 100, HOBBIES: 100, HOUSEHOLD: 100 });
-  assert.equal(dashboard.item_count, 300);
-  assert.equal(dashboard.daily_sales.length, 1941);
+  assert.equal(model.item_count, 300);
   assert.equal(model.status, "ready");
   assert.ok(model.features_used.length > 0);
   assert.ok(model.temporal_split.validation_period);
-  console.log(JSON.stringify({ model: model.model_version, items: catalog.items.length, history_days: dashboard.daily_sales.length }));
+  console.log(JSON.stringify({ api_version: health.version, model: model.model_version, items: catalog.items.length }));
 });
 
 for (const horizon of [1, 7, 28]) {

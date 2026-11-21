@@ -21,7 +21,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => { getHealth().then(setHealth).catch(() => setHealth(null)); }, []);
   return <div className="min-h-screen bg-ground font-sans text-ink antialiased">
     <a className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-6 focus:z-50 focus:rounded-lg focus:bg-forest focus:px-5 focus:py-3 focus:text-white" href="#main">Đi tới nội dung</a>
-    <header className="px-6 pt-5 max-sm:px-3 max-sm:pt-3">
+    <header className="sticky top-0 z-40 bg-ground/95 px-6 pt-5 pb-3 backdrop-blur-md max-sm:px-3 max-sm:pt-3">
       <div className="relative mx-auto flex min-h-[74px] max-w-[1480px] items-center justify-between gap-6 rounded-[20px] border border-line bg-white/95 px-7 py-3 shadow-[0_3px_0_#0d3b2e0b] max-lg:gap-3 max-lg:px-4 max-sm:min-h-16 max-sm:rounded-2xl max-sm:px-3.5 max-sm:py-2">
         <Link className="flex items-center gap-2.5 text-xl font-extrabold tracking-[-0.055em] whitespace-nowrap max-sm:text-lg" href="/" aria-label="M5 Retail - Tổng quan"><span className="grid size-[34px] -rotate-[8deg] place-items-center rounded-[11px_11px_11px_3px] bg-mint text-base text-forest">M<span className="text-[11px]">5</span></span><span>M5 <b className="text-[#0d7045]">Retail</b></span></Link>
         <button className="hidden size-11 place-items-center text-forest max-sm:grid" type="button" aria-label={menuOpen ? "Đóng menu" : "Mở menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={22}/> : <Menu size={22}/>}</button>
@@ -29,7 +29,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex min-h-10 items-center gap-2 rounded-[10px] border border-line bg-[#f5faf6] px-3 text-[13px] font-bold whitespace-nowrap text-forest max-lg:hidden"><span className={`size-2 rounded-full ${health?.model_loaded ? "bg-mint" : "bg-[#dca34c]"}`}/>{health?.model_loaded ? "Model sẵn sàng" : health ? "Model chưa sẵn sàng" : "API chưa kết nối"}</div>
       </div>
     </header>
-    <main id="main" className="mx-auto max-w-[1424px] px-10 pb-24 max-lg:px-7 max-sm:px-[18px] max-sm:pb-14">{children}</main>
+    <main id="main" tabIndex={-1} className="mx-auto max-w-[1424px] scroll-mt-32 px-10 pb-24 max-lg:px-7 max-sm:scroll-mt-28 max-sm:px-[18px] max-sm:pb-14">{children}</main>
     <footer className="mx-auto flex max-w-[1344px] justify-between gap-5 border-t border-line px-4 pt-6 pb-10 text-[13px] text-muted max-sm:mx-[18px] max-sm:block max-sm:px-0 max-sm:pb-8 max-sm:[&>span]:block max-sm:[&>span]:mb-1.5"><span>M5 Retail · CA_1 / 300 sản phẩm</span><span>Dữ liệu bán hàng theo đơn vị sản phẩm (units)</span></footer>
   </div>;
 }

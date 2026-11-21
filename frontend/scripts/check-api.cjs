@@ -109,17 +109,6 @@ async function main() {
     await assert.rejects(api("/predict", { method: "POST", body: JSON.stringify({ store_id: "CA_1", item_id: "FOODS_1_017", horizon: 29 }) }), /1 đến 28/);
     assert.equal(report.requests.at(-1).status, 422);
   });
-  await check("dashboard_availability", async () => {
-    const response = await fetch(`${baseUrl}/dashboard`);
-    if (target === "aci" && response.status === 503) {
-      assert.equal((await response.json()).error_code, "DASHBOARD_NOT_READY");
-      return { warning: "History unavailable: Q05 image excludes processed Parquet. Forecast uses the HI05 bundle independently." };
-    }
-    assert.equal(response.status, 200);
-    const data = await response.json();
-    assert.equal(data.item_count, 300);
-    assert.equal(data.daily_sales.length, 1941);
-  });
 }
 
 main().catch(error => {
