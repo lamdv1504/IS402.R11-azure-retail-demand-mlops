@@ -10,6 +10,8 @@ data/processed/**/*.parquet
 
 # Local credentials and Python caches.
 .env
+.env.*
+!/.env.example
 **/kaggle.json
 __pycache__/
 *.py[cod]

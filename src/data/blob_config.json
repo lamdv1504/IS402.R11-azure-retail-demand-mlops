@@ -1,0 +1,19 @@
+{
+  "account_name": "m5retailstore2026",
+  "data_version": "m5-ca1-300-v1",
+  "scope_file": "reports/Hung/m5_mvp_items.csv",
+  "h02_log": "reports/Hung/h02_processing_log.json",
+  "raw_dir": "data/raw",
+  "processed_file": "data/processed/m5_sales_processed.parquet",
+  "raw_container": "raw-data",
+  "processed_container": "processed-data",
+  "raw_prefix": "raw/m5",
+  "processed_prefix": "processed/m5/v1",
+  "raw_files": [
+    "sales_train_validation.csv",
+    "sales_train_evaluation.csv",
+    "calendar.csv",
+    "sell_prices.csv",
+    "sample_submission.csv"
+  ]
+}
