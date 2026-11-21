@@ -12,6 +12,7 @@ data/processed/**/*.parquet
 .env
 .env.*
 !/.env.example
+config.json
 **/kaggle.json
 __pycache__/
 *.py[cod]
