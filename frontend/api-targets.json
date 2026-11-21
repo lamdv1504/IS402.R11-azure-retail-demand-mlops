@@ -1,0 +1,4 @@
+{
+  "local": "http://127.0.0.1:8000",
+  "aci": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000"
+}
