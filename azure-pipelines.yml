@@ -10,24 +10,55 @@ pool:
 variables:
   python.version: '3.11'
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Cài đặt Python $(python.version)'
+stages:
+- stage: CI
+  displayName: 'CI: lint và test'
+  jobs:
+  - job: Test
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Cài đặt Python $(python.version)'
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install flake8 pytest
-    if [ -f requirements-data.txt ]; then pip install -r requirements-data.txt; fi
-  displayName: 'Cài đặt thư viện (Dependencies)'
+    - script: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest httpx
+        if [ -f requirements-data.txt ]; then pip install -r requirements-data.txt; fi
+        pip install -r requirements-storage.txt
+        pip install -r backend/requirements.txt
+      displayName: 'Cài đặt thư viện (Dependencies)'
 
-- script: |
-    flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
-    flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-  displayName: 'Chạy kiểm tra code (Check Lint bằng Flake8)'
-  continueOnError: true
+    - script: |
+        flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      displayName: 'Chạy kiểm tra code (Check Lint bằng Flake8)'
+      continueOnError: true
 
-- script: |
-    python -m pytest tests/
-  displayName: 'Chạy Unit Test (bằng Pytest)'
+    - script: |
+        python -m pytest tests/
+      displayName: 'Chạy Unit Test (bằng Pytest)'
+
+    - script: |
+        python -m pytest backend/tests/
+      displayName: 'Kiểm thử API và bundle HI05'
+
+- stage: BuildAndPushACR
+  displayName: 'Build and push API image to ACR'
+  dependsOn: CI
+  condition: succeeded()
+  jobs:
+  - job: BuildAndPushACR
+    condition: succeeded()
+    steps:
+    - task: Docker@2
+      displayName: 'Build and Push retail-forecast-api to ACR'
+      inputs:
+        containerRegistry: 'ACR-Connection'
+        repository: 'retail-forecast-api'
+        command: 'buildAndPush'
+        Dockerfile: 'backend/Dockerfile'
+        buildContext: '.'
+        tags: |
+          v1
+          $(Build.BuildId)
