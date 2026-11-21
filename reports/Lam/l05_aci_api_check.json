@@ -1,0 +1,2173 @@
+{
+  "target": "aci",
+  "api_url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000",
+  "started_at": "2026-11-21T14:22:36.721Z",
+  "verification": "Node HTTP + actual frontend predictionService; browser UI/Network not verified by this command",
+  "checks": [
+    {
+      "name": "health_model_loaded",
+      "status": "passed"
+    },
+    {
+      "name": "model_metadata",
+      "status": "passed",
+      "note": "hi05-xgboost-cb3a08fa5e82"
+    },
+    {
+      "name": "catalog_300_items",
+      "status": "passed"
+    },
+    {
+      "name": "cors_http://localhost:3000",
+      "status": "passed"
+    },
+    {
+      "name": "cors_http://127.0.0.1:3000",
+      "status": "passed"
+    },
+    {
+      "name": "forecast_28_days",
+      "status": "passed",
+      "note": "28 days, 21.34 units, hi05-xgboost-cb3a08fa5e82"
+    },
+    {
+      "name": "unknown_item_404",
+      "status": "passed"
+    },
+    {
+      "name": "invalid_horizon_422",
+      "status": "passed"
+    },
+    {
+      "name": "dashboard_availability",
+      "status": "warning",
+      "note": "History unavailable: Q05 image excludes processed Parquet. Forecast uses the HI05 bundle independently."
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/health",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "status": "healthy",
+        "service": "retail-demand-forecast-api",
+        "version": "0.1.0",
+        "model_loaded": true,
+        "timestamp": "2026-11-21T14:22:36.844547+00:00"
+      },
+      "duration_ms": 217
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/model-info",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "model_name": "M5 Retail Demand xgboost",
+        "model_version": "hi05-xgboost-cb3a08fa5e82",
+        "algorithm": "xgboost",
+        "status": "ready",
+        "training_date": "2026-11-18T09:07:49.306654Z",
+        "data_version": "m5-ca1-300-v1",
+        "store_scope": [
+          "CA_1"
+        ],
+        "item_count": 300,
+        "forecast_horizon": 28,
+        "features_used": [
+          "lag_28",
+          "lag_56",
+          "wday",
+          "month",
+          "year",
+          "snap_state",
+          "item_id_code",
+          "dept_id_code",
+          "cat_id_code",
+          "store_id_code",
+          "state_id_code",
+          "weekday_code",
+          "event_name_1_code",
+          "event_type_1_code",
+          "event_name_2_code",
+          "event_type_2_code"
+        ],
+        "temporal_split": {
+          "train_period": "d_1...d_1885",
+          "validation_period": "d_1886...d_1913",
+          "holdout_period": "d_1914...d_1941"
+        },
+        "metrics": {
+          "validation_subset_rmsse": 0.7209842238186299,
+          "validation_subset_wrmsse": 0.7628474044181374,
+          "validation_mae": 1.0301821239416797,
+          "validation_rmse": 2.027790973483406,
+          "metric_scope_note": "CA_1 MVP 300 item-store series only. Subset RMSSE is the unweighted mean; Subset WRMSSE is revenue-weighted at the bottom level only, not the official 12-level/full-competition M5 score. Scales exclude leading zero demand; weights use the last 28 observed days before each forecast origin."
+        }
+      },
+      "duration_ms": 210
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/items",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "store_id": "CA_1",
+        "total_items": 300,
+        "categories_breakdown": {
+          "FOODS": 100,
+          "HOBBIES": 100,
+          "HOUSEHOLD": 100
+        },
+        "items": [
+          {
+            "item_id": "FOODS_1_017",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_031",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_046",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_051",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_053",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_069",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_072",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_078",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_080",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_118",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_126",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_167",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_172",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_1_212",
+            "dept_id": "FOODS_1",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_003",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_016",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_022",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_044",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_046",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_059",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_062",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_074",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_088",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_102",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_128",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_130",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_132",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_144",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_147",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_160",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_197",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_199",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_247",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_250",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_267",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_283",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_344",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_347",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_2_380",
+            "dept_id": "FOODS_2",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_006",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_017",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_038",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_051",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_057",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_083",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_088",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_093",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_124",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_131",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_140",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_142",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_150",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_152",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_153",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_195",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_197",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_211",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_231",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_273",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_276",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_282",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_288",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_293",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_294",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_296",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_304",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_350",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_361",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_406",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_412",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_420",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_458",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_466",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_480",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_481",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_485",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_490",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_491",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_522",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_525",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_539",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_544",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_561",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_567",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_584",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_608",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_610",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_635",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_646",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_660",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_668",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_670",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_680",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_703",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_715",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_724",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_730",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_764",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_783",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "FOODS_3_790",
+            "dept_id": "FOODS_3",
+            "cat_id": "FOODS"
+          },
+          {
+            "item_id": "HOBBIES_1_003",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_007",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_010",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_011",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_031",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_040",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_056",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_073",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_075",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_076",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_078",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_079",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_080",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_081",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_082",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_084",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_085",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_086",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_087",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_089",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_093",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_106",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_109",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_114",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_123",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_136",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_137",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_145",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_150",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_153",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_158",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_160",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_163",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_170",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_181",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_183",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_191",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_202",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_210",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_211",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_216",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_217",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_226",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_230",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_239",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_242",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_246",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_255",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_256",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_257",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_258",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_263",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_271",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_273",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_279",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_283",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_288",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_305",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_320",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_327",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_330",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_331",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_333",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_337",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_349",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_361",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_373",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_383",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_386",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_393",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_397",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_399",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_411",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_420",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_1_424",
+            "dept_id": "HOBBIES_1",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_001",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_005",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_028",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_034",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_045",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_052",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_063",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_071",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_077",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_081",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_084",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_108",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_109",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_112",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_117",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_121",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_122",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_123",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_131",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_136",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_138",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_139",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_143",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_145",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOBBIES_2_146",
+            "dept_id": "HOBBIES_2",
+            "cat_id": "HOBBIES"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_011",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_033",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_052",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_062",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_073",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_079",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_081",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_090",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_092",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_100",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_105",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_112",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_141",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_146",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_163",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_189",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_197",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_203",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_204",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_213",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_215",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_218",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_223",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_250",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_266",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_284",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_297",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_313",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_316",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_328",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_340",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_351",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_358",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_360",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_365",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_367",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_373",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_378",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_385",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_398",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_419",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_423",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_434",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_455",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_458",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_461",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_467",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_500",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_524",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_1_529",
+            "dept_id": "HOUSEHOLD_1",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_016",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_018",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_026",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_029",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_053",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_064",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_082",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_083",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_097",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_102",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_119",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_129",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_136",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_147",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_162",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_169",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_180",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_200",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_210",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_211",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_216",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_235",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_253",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_258",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_259",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_294",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_313",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_321",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_324",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_339",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_344",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_366",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_373",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_377",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_402",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_403",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_409",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_411",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_421",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_435",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_448",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_450",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_460",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_462",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_473",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_485",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_486",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_490",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_511",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          },
+          {
+            "item_id": "HOUSEHOLD_2_513",
+            "dept_id": "HOUSEHOLD_2",
+            "cat_id": "HOUSEHOLD"
+          }
+        ]
+      },
+      "duration_ms": 182
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/predict",
+      "method": "OPTIONS",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": "GET, POST",
+        "access-control-allow-headers": "Accept, Accept-Language, Content-Language, Content-Type"
+      },
+      "response": null,
+      "duration_ms": 89
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/health",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "status": "healthy",
+        "service": "retail-demand-forecast-api",
+        "version": "0.1.0",
+        "model_loaded": true,
+        "timestamp": "2026-11-21T14:22:37.431291+00:00"
+      },
+      "duration_ms": 94
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/predict",
+      "method": "OPTIONS",
+      "origin": "http://127.0.0.1:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://127.0.0.1:3000",
+        "access-control-allow-methods": "GET, POST",
+        "access-control-allow-headers": "Accept, Accept-Language, Content-Language, Content-Type"
+      },
+      "response": null,
+      "duration_ms": 90
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/health",
+      "method": "GET",
+      "origin": "http://127.0.0.1:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://127.0.0.1:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "status": "healthy",
+        "service": "retail-demand-forecast-api",
+        "version": "0.1.0",
+        "model_loaded": true,
+        "timestamp": "2026-11-21T14:22:37.612058+00:00"
+      },
+      "duration_ms": 88
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/predict",
+      "method": "POST",
+      "origin": "http://localhost:3000",
+      "request": {
+        "store_id": "CA_1",
+        "item_id": "FOODS_1_017",
+        "horizon": 28
+      },
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "store_id": "CA_1",
+        "item_id": "FOODS_1_017",
+        "dept_id": "FOODS_1",
+        "cat_id": "FOODS",
+        "state_id": "CA",
+        "model_version": "hi05-xgboost-cb3a08fa5e82",
+        "data_version": "m5-ca1-300-v1",
+        "forecast_start_date": "2016-05-23",
+        "horizon": 28,
+        "total_predicted_sales": 21.34,
+        "forecast": [
+          {
+            "date": "2016-05-23",
+            "day_of_week": "Monday",
+            "predicted_sales": 0.77
+          },
+          {
+            "date": "2016-05-24",
+            "day_of_week": "Tuesday",
+            "predicted_sales": 0.53
+          },
+          {
+            "date": "2016-05-25",
+            "day_of_week": "Wednesday",
+            "predicted_sales": 0.64
+          },
+          {
+            "date": "2016-05-26",
+            "day_of_week": "Thursday",
+            "predicted_sales": 0.65
+          },
+          {
+            "date": "2016-05-27",
+            "day_of_week": "Friday",
+            "predicted_sales": 0.78
+          },
+          {
+            "date": "2016-05-28",
+            "day_of_week": "Saturday",
+            "predicted_sales": 1.15
+          },
+          {
+            "date": "2016-05-29",
+            "day_of_week": "Sunday",
+            "predicted_sales": 0.75
+          },
+          {
+            "date": "2016-05-30",
+            "day_of_week": "Monday",
+            "predicted_sales": 0.4
+          },
+          {
+            "date": "2016-05-31",
+            "day_of_week": "Tuesday",
+            "predicted_sales": 0.68
+          },
+          {
+            "date": "2016-06-01",
+            "day_of_week": "Wednesday",
+            "predicted_sales": 0.38
+          },
+          {
+            "date": "2016-06-02",
+            "day_of_week": "Thursday",
+            "predicted_sales": 0.78
+          },
+          {
+            "date": "2016-06-03",
+            "day_of_week": "Friday",
+            "predicted_sales": 0.9
+          },
+          {
+            "date": "2016-06-04",
+            "day_of_week": "Saturday",
+            "predicted_sales": 1.2
+          },
+          {
+            "date": "2016-06-05",
+            "day_of_week": "Sunday",
+            "predicted_sales": 0.8
+          },
+          {
+            "date": "2016-06-06",
+            "day_of_week": "Monday",
+            "predicted_sales": 0.64
+          },
+          {
+            "date": "2016-06-07",
+            "day_of_week": "Tuesday",
+            "predicted_sales": 0.72
+          },
+          {
+            "date": "2016-06-08",
+            "day_of_week": "Wednesday",
+            "predicted_sales": 0.57
+          },
+          {
+            "date": "2016-06-09",
+            "day_of_week": "Thursday",
+            "predicted_sales": 0.83
+          },
+          {
+            "date": "2016-06-10",
+            "day_of_week": "Friday",
+            "predicted_sales": 0.7
+          },
+          {
+            "date": "2016-06-11",
+            "day_of_week": "Saturday",
+            "predicted_sales": 1.11
+          },
+          {
+            "date": "2016-06-12",
+            "day_of_week": "Sunday",
+            "predicted_sales": 0.48
+          },
+          {
+            "date": "2016-06-13",
+            "day_of_week": "Monday",
+            "predicted_sales": 0.81
+          },
+          {
+            "date": "2016-06-14",
+            "day_of_week": "Tuesday",
+            "predicted_sales": 0.68
+          },
+          {
+            "date": "2016-06-15",
+            "day_of_week": "Wednesday",
+            "predicted_sales": 0.7
+          },
+          {
+            "date": "2016-06-16",
+            "day_of_week": "Thursday",
+            "predicted_sales": 0.69
+          },
+          {
+            "date": "2016-06-17",
+            "day_of_week": "Friday",
+            "predicted_sales": 0.63
+          },
+          {
+            "date": "2016-06-18",
+            "day_of_week": "Saturday",
+            "predicted_sales": 1.08
+          },
+          {
+            "date": "2016-06-19",
+            "day_of_week": "Sunday",
+            "predicted_sales": 1.29
+          }
+        ]
+      },
+      "duration_ms": 194
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/model-info",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 200,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "model_name": "M5 Retail Demand xgboost",
+        "model_version": "hi05-xgboost-cb3a08fa5e82",
+        "algorithm": "xgboost",
+        "status": "ready",
+        "training_date": "2026-11-18T09:07:49.306654Z",
+        "data_version": "m5-ca1-300-v1",
+        "store_scope": [
+          "CA_1"
+        ],
+        "item_count": 300,
+        "forecast_horizon": 28,
+        "features_used": [
+          "lag_28",
+          "lag_56",
+          "wday",
+          "month",
+          "year",
+          "snap_state",
+          "item_id_code",
+          "dept_id_code",
+          "cat_id_code",
+          "store_id_code",
+          "state_id_code",
+          "weekday_code",
+          "event_name_1_code",
+          "event_type_1_code",
+          "event_name_2_code",
+          "event_type_2_code"
+        ],
+        "temporal_split": {
+          "train_period": "d_1...d_1885",
+          "validation_period": "d_1886...d_1913",
+          "holdout_period": "d_1914...d_1941"
+        },
+        "metrics": {
+          "validation_subset_rmsse": 0.7209842238186299,
+          "validation_subset_wrmsse": 0.7628474044181374,
+          "validation_mae": 1.0301821239416797,
+          "validation_rmse": 2.027790973483406,
+          "metric_scope_note": "CA_1 MVP 300 item-store series only. Subset RMSSE is the unweighted mean; Subset WRMSSE is revenue-weighted at the bottom level only, not the official 12-level/full-competition M5 score. Scales exclude leading zero demand; weights use the last 28 observed days before each forecast origin."
+        }
+      },
+      "duration_ms": 90
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/predict",
+      "method": "POST",
+      "origin": "http://localhost:3000",
+      "request": {
+        "store_id": "CA_1",
+        "item_id": "NOT_IN_MVP",
+        "horizon": 28
+      },
+      "status": 404,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "error_code": "ITEM_NOT_FOUND",
+        "detail": "Store hoặc item không thuộc phạm vi MVP.",
+        "timestamp": "2026-11-21T14:22:37.989787+00:00"
+      },
+      "duration_ms": 91
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/predict",
+      "method": "POST",
+      "origin": "http://localhost:3000",
+      "request": {
+        "store_id": "CA_1",
+        "item_id": "FOODS_1_017",
+        "horizon": 29
+      },
+      "status": 422,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "detail": [
+          {
+            "type": "less_than_equal",
+            "loc": [
+              "body",
+              "horizon"
+            ],
+            "msg": "Input should be less than or equal to 28",
+            "input": 29,
+            "ctx": {
+              "le": 28
+            }
+          }
+        ]
+      },
+      "duration_ms": 86
+    },
+    {
+      "url": "http://m5-retail-forecast-api-2026.arapascqfgcjasbc.japaneast.azurecontainer.io:8000/dashboard",
+      "method": "GET",
+      "origin": "http://localhost:3000",
+      "request": null,
+      "status": 503,
+      "cors": {
+        "access-control-allow-origin": "http://localhost:3000",
+        "access-control-allow-methods": null,
+        "access-control-allow-headers": null
+      },
+      "response": {
+        "error_code": "DASHBOARD_NOT_READY",
+        "detail": "Dữ liệu tổng quan chưa sẵn sàng.",
+        "timestamp": "2026-11-21T14:22:38.164710+00:00"
+      },
+      "duration_ms": 87
+    }
+  ],
+  "forecast": {
+    "store_id": "CA_1",
+    "item_id": "FOODS_1_017",
+    "dept_id": "FOODS_1",
+    "cat_id": "FOODS",
+    "state_id": "CA",
+    "model_version": "hi05-xgboost-cb3a08fa5e82",
+    "data_version": "m5-ca1-300-v1",
+    "forecast_start_date": "2016-05-23",
+    "horizon": 28,
+    "total_predicted_sales": 21.34,
+    "forecast": [
+      {
+        "date": "2016-05-23",
+        "day_of_week": "Monday",
+        "predicted_sales": 0.77
+      },
+      {
+        "date": "2016-05-24",
+        "day_of_week": "Tuesday",
+        "predicted_sales": 0.53
+      },
+      {
+        "date": "2016-05-25",
+        "day_of_week": "Wednesday",
+        "predicted_sales": 0.64
+      },
+      {
+        "date": "2016-05-26",
+        "day_of_week": "Thursday",
+        "predicted_sales": 0.65
+      },
+      {
+        "date": "2016-05-27",
+        "day_of_week": "Friday",
+        "predicted_sales": 0.78
+      },
+      {
+        "date": "2016-05-28",
+        "day_of_week": "Saturday",
+        "predicted_sales": 1.15
+      },
+      {
+        "date": "2016-05-29",
+        "day_of_week": "Sunday",
+        "predicted_sales": 0.75
+      },
+      {
+        "date": "2016-05-30",
+        "day_of_week": "Monday",
+        "predicted_sales": 0.4
+      },
+      {
+        "date": "2016-05-31",
+        "day_of_week": "Tuesday",
+        "predicted_sales": 0.68
+      },
+      {
+        "date": "2016-06-01",
+        "day_of_week": "Wednesday",
+        "predicted_sales": 0.38
+      },
+      {
+        "date": "2016-06-02",
+        "day_of_week": "Thursday",
+        "predicted_sales": 0.78
+      },
+      {
+        "date": "2016-06-03",
+        "day_of_week": "Friday",
+        "predicted_sales": 0.9
+      },
+      {
+        "date": "2016-06-04",
+        "day_of_week": "Saturday",
+        "predicted_sales": 1.2
+      },
+      {
+        "date": "2016-06-05",
+        "day_of_week": "Sunday",
+        "predicted_sales": 0.8
+      },
+      {
+        "date": "2016-06-06",
+        "day_of_week": "Monday",
+        "predicted_sales": 0.64
+      },
+      {
+        "date": "2016-06-07",
+        "day_of_week": "Tuesday",
+        "predicted_sales": 0.72
+      },
+      {
+        "date": "2016-06-08",
+        "day_of_week": "Wednesday",
+        "predicted_sales": 0.57
+      },
+      {
+        "date": "2016-06-09",
+        "day_of_week": "Thursday",
+        "predicted_sales": 0.83
+      },
+      {
+        "date": "2016-06-10",
+        "day_of_week": "Friday",
+        "predicted_sales": 0.7
+      },
+      {
+        "date": "2016-06-11",
+        "day_of_week": "Saturday",
+        "predicted_sales": 1.11
+      },
+      {
+        "date": "2016-06-12",
+        "day_of_week": "Sunday",
+        "predicted_sales": 0.48
+      },
+      {
+        "date": "2016-06-13",
+        "day_of_week": "Monday",
+        "predicted_sales": 0.81
+      },
+      {
+        "date": "2016-06-14",
+        "day_of_week": "Tuesday",
+        "predicted_sales": 0.68
+      },
+      {
+        "date": "2016-06-15",
+        "day_of_week": "Wednesday",
+        "predicted_sales": 0.7
+      },
+      {
+        "date": "2016-06-16",
+        "day_of_week": "Thursday",
+        "predicted_sales": 0.69
+      },
+      {
+        "date": "2016-06-17",
+        "day_of_week": "Friday",
+        "predicted_sales": 0.63
+      },
+      {
+        "date": "2016-06-18",
+        "day_of_week": "Saturday",
+        "predicted_sales": 1.08
+      },
+      {
+        "date": "2016-06-19",
+        "day_of_week": "Sunday",
+        "predicted_sales": 1.29
+      }
+    ]
+  },
+  "finished_at": "2026-11-21T14:22:38.299Z",
+  "status": "passed_with_warnings"
+}
