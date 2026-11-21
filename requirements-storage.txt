@@ -1,0 +1,4 @@
+-r requirements-data.txt
+azure-storage-blob>=12.24,<13
+azure-identity>=1.21,<2
+python-dotenv>=1.0,<2

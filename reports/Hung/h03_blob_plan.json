@@ -1,0 +1,128 @@
+{
+  "task": "H03",
+  "mode": "plan",
+  "status": "planned",
+  "recorded_at": "2026-11-21T07:07:09.018851+00:00",
+  "account_name": "m5retailstore2026",
+  "data_version": "m5-ca1-300-v1",
+  "selection": "all",
+  "processed_scope": {
+    "store_id": "CA_1",
+    "item_count": 300,
+    "day_count": 1941,
+    "row_count": 582300,
+    "column_count": 22,
+    "start_date": "2011-01-29",
+    "end_date": "2016-05-22",
+    "schema": {
+      "id": "dictionary<values=string, indices=int16, ordered=0>",
+      "item_id": "dictionary<values=string, indices=int16, ordered=0>",
+      "dept_id": "dictionary<values=string, indices=int8, ordered=0>",
+      "cat_id": "dictionary<values=string, indices=int8, ordered=0>",
+      "store_id": "dictionary<values=string, indices=int8, ordered=0>",
+      "state_id": "dictionary<values=string, indices=int8, ordered=0>",
+      "d": "large_string",
+      "sales": "int8",
+      "date": "timestamp[us]",
+      "wm_yr_wk": "int16",
+      "weekday": "dictionary<values=string, indices=int8, ordered=0>",
+      "wday": "int8",
+      "month": "int8",
+      "year": "int16",
+      "event_name_1": "dictionary<values=string, indices=int8, ordered=0>",
+      "event_type_1": "dictionary<values=string, indices=int8, ordered=0>",
+      "event_name_2": "dictionary<values=string, indices=int8, ordered=0>",
+      "event_type_2": "dictionary<values=string, indices=int8, ordered=0>",
+      "snap_CA": "int8",
+      "snap_TX": "int8",
+      "snap_WI": "int8",
+      "sell_price": "float"
+    }
+  },
+  "files": [
+    {
+      "local": {
+        "path": "data/raw/sales_train_validation.csv",
+        "size_bytes": 120007726,
+        "sha256": "f368e66ed1dbecb48b2cc8fc589bf68b3deddbbb36bf5c88b4d6d0a09b9b6724"
+      },
+      "container": "raw-data",
+      "blob_name": "raw/m5/sales_train_validation.csv",
+      "data_scope": "full_m5_raw",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/raw-data/raw/m5/sales_train_validation.csv",
+      "remote": {
+        "status": "not_checked"
+      }
+    },
+    {
+      "local": {
+        "path": "data/raw/sales_train_evaluation.csv",
+        "size_bytes": 121736518,
+        "sha256": "4b4a47c44c38380d2a9168216fea8c9ff2f31b1ddb772f8a0995952a038b8aa0"
+      },
+      "container": "raw-data",
+      "blob_name": "raw/m5/sales_train_evaluation.csv",
+      "data_scope": "full_m5_raw",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/raw-data/raw/m5/sales_train_evaluation.csv",
+      "remote": {
+        "status": "not_checked"
+      }
+    },
+    {
+      "local": {
+        "path": "data/raw/calendar.csv",
+        "size_bytes": 103469,
+        "sha256": "d12b5914ef03e66649adf5dd9e996e6602251c22b7a6af8f1f7e3aa12f8860f5"
+      },
+      "container": "raw-data",
+      "blob_name": "raw/m5/calendar.csv",
+      "data_scope": "full_m5_raw",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/raw-data/raw/m5/calendar.csv",
+      "remote": {
+        "status": "not_checked"
+      }
+    },
+    {
+      "local": {
+        "path": "data/raw/sell_prices.csv",
+        "size_bytes": 203395785,
+        "sha256": "9da3ad1f8b8ccacdbdc70612191dd375ec24a4ac6625c24b75b3bc60b0bed2ef"
+      },
+      "container": "raw-data",
+      "blob_name": "raw/m5/sell_prices.csv",
+      "data_scope": "full_m5_raw",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/raw-data/raw/m5/sell_prices.csv",
+      "remote": {
+        "status": "not_checked"
+      }
+    },
+    {
+      "local": {
+        "path": "data/raw/sample_submission.csv",
+        "size_bytes": 5228786,
+        "sha256": "eb7597afbec367475ef25dc6dbbc009b8faa47fa2107252c72a029e3cdf72343"
+      },
+      "container": "raw-data",
+      "blob_name": "raw/m5/sample_submission.csv",
+      "data_scope": "full_m5_raw",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/raw-data/raw/m5/sample_submission.csv",
+      "remote": {
+        "status": "not_checked"
+      }
+    },
+    {
+      "local": {
+        "path": "data/processed/m5_sales_processed.parquet",
+        "size_bytes": 620521,
+        "sha256": "b00292494f0056a0c281ecb9c144110a93b52b415dddb1397b93eee9bed70aff"
+      },
+      "container": "processed-data",
+      "blob_name": "processed/m5/v1/m5_sales_processed.parquet",
+      "data_scope": "mvp_processed",
+      "uri": "https://m5retailstore2026.blob.core.windows.net/processed-data/processed/m5/v1/m5_sales_processed.parquet",
+      "remote": {
+        "status": "not_checked"
+      }
+    }
+  ]
+}
